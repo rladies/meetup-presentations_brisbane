@@ -16,12 +16,9 @@ The University of Queensland
 * Sandra Brosda
 * Valentine Murigneux
 
-### Participants
-*
-*
+## Host
 
-
-
+We would like to thank [Nous Group](https://www.nousgroup.com) for providing the venue for this event.
 
 ## Overview
 A short introduction to R and RStudio for total beginners wanting to learn R in a friendly environment.
