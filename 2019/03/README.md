@@ -7,7 +7,7 @@ Australian Institute for Bioengineering and Nanotechnology (AIBN)
 The University of Queensland
 
 ### Date
-Wed, 27th March 2019
+Wednesday March 27, 2019
 
 ### Helpers
 * Ebony Watson
