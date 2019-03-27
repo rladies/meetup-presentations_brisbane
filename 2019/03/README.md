@@ -24,4 +24,6 @@ Wednesday March 27, 2019
 
 
 ## Overview
+A short introduction to R and RStudio for total beginners wanting to learn R in a friendly environment.
 
+Find the [slides here](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2019/03/R-Ladies_Brisbane_27March2019.pdf).
