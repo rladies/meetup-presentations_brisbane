@@ -3,4 +3,4 @@
 Here you will find presentations of our meetups.
 
 
-To share the location of this repo please use [tinyurl.com/rladiesBrisbane](tinyurl.com/rladiesBrisbane)
+To share the location of this repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
