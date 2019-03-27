@@ -8,12 +8,13 @@ The University of Queensland
 
 ### Date
 Wed, 27th March 2019
+
 ### Helpers
-* Sandra Borda
-* Paula Andrea Martinez
-* Valentine Murigneux
 * Ebony Watson
-* Huiwen	Zeng
+* Huiwen Zeng
+* Paula Andrea Martinez
+* Sandra Brosda
+* Valentine Murigneux
 
 ### Participants
 *
