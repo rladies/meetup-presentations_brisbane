@@ -1,13 +1,13 @@
 # Welcome to R and RStudio Introductory Workshop
 
+### Date
+Wednesday March 27, 2019
+
 ### Instructor
 Atefeh (Ati) Taherian Fard
 
 Australian Institute for Bioengineering and Nanotechnology (AIBN)
 The University of Queensland
-
-### Date
-Wednesday March 27, 2019
 
 ### Helpers
 * Ebony Watson
