@@ -12,7 +12,7 @@ To share the location of this repo please use [https://tinyurl.com/rladiesBrisba
 ## Overview
 * Welcome
 * Get to know the group! - Bingo card! Get 5 in a line
-* R Community Flashcards [tinyurl.com/Rcommunityslides](tinyurl.com/Rcommunityslides)
+* R Community Flashcards [https://tinyurl.com/Rcommunityslides](https://tinyurl.com/Rcommunityslides)
 
 ### Date
 Tuesday 21 May 2019
