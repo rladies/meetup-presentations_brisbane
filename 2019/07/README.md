@@ -11,6 +11,9 @@ To share the location of this repo please use [https://tinyurl.com/rladiesBrisba
 
 ## Overview
 * Welcome
+* ShinyApps by Rheta
+* Building and R community at work by Kate
+* Web scrapping by Jenny
 
 
 ### Date
@@ -20,6 +23,10 @@ Tuesday 2 July 2019
 
 We would like to thank [Nous Group](https://www.nousgroup.com) for providing the venue for this event and snacks, and Jenny Shen for helping organise.
 
+### Banner
 
-### Use, Share and Adapt
+We would like to thank QFAB for sponsoring our bran new banner!
+
+
+
 
