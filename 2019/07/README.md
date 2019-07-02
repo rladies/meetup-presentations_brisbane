@@ -14,6 +14,7 @@ To share the location of this repo please use [https://tinyurl.com/rladiesBrisba
 * ShinyApps by Rheta
 * Building and R community at work by Kate
 * Web scrapping by Jenny
+* Mingle
 
 
 ### Date
@@ -25,7 +26,7 @@ We would like to thank [Nous Group](https://www.nousgroup.com) for providing the
 
 ### Banner
 
-We would like to thank QFAB for sponsoring our bran new banner!
+We would like to thank QFAB for sponsoring our brand new banner!
 
 
 
