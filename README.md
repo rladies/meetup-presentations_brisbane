@@ -7,6 +7,10 @@ Find us on meetup.com [https://www.meetup.com/rladies-brisbane/](https://www.mee
 
 To share the location of this repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
 
+Join the conversation on Slack https://tinyurl.com/RladiesBrisbaneSlack
+
+Find us on Facebook https://facebook.com/RLadiesBNE
+
 
 ## Overview
 
