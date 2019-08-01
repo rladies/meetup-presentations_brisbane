@@ -2,15 +2,14 @@
 
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/RLadiesBrisbane.svg?style=social)](https://twitter.com/RLadiesBrisbane)
+
 Find us on meetup.com [https://www.meetup.com/rladies-brisbane/](https://www.meetup.com/rladies-brisbane/)
 
-
-To share the location of this repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
+To share the location of this GitHub repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
 
 Join the conversation on Slack https://tinyurl.com/RladiesBrisbaneSlack
 
 Find us on Facebook https://facebook.com/RLadiesBNE
-
 
 ## Overview
 
