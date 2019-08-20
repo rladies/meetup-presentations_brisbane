@@ -7,3 +7,9 @@ Wednesday, August 21, 2019
 
 ## Potential Speakers:
 
+- Giorgia Mori: First steps to create an R package
+- Helen Oiseth Moen: Rmarkdown and ggplot2
+- Paula Martinez: Xaringan for Rladies presentations
+
+Bring your own laptop
+We will have snacks and drinks :)
