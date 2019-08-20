@@ -7,6 +7,3 @@ Wednesday, August 21, 2019
 
 ## Potential Speakers:
 
-- Katie Peterson
-- Emma Axford
-- Alexandra Brown
