@@ -5,7 +5,7 @@
 Wednesday, August 21, 2019
 
 
-## Potential Speakers:
+## Speakers:
 
 - Giorgia Mori: First steps to create an R package
 - Helen Oiseth Moen: Rmarkdown and ggplot2
