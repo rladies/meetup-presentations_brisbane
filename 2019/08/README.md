@@ -11,5 +11,8 @@ Wednesday, August 21, 2019
 - Helen Oiseth Moen: Rmarkdown and ggplot2
 - Paula Martinez: Xaringan for Rladies presentations
 
-Bring your own laptop
-We will have snacks and drinks :)
+Bring your own laptop.
+
+We will have snacks and drinks :) thanks to Nous Group!
+
+https://www.meetup.com/rladies-brisbane/messages/boards/thread/52390900#132129216
