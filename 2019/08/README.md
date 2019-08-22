@@ -8,7 +8,7 @@ Wednesday, August 21, 2019
 ## Speakers:
 
 - Giorgia Mori: First steps to create an R package
-- Helen Oiseth Moen: Rmarkdown and ggplot2
+- Helen Oiseth Moen: [Rmarkdown and ggplot2](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2019/08/Rmarkdown)
 - Paula Martinez: Xaringan and Kunichio for Rladies presentations. See the slides here: [https://orchid00.github.io/xaringan_kunoichi/Kunoichi.html](https://orchid00.github.io/xaringan_kunoichi/Kunoichi.html)
 
 ## Bring your own laptop.
