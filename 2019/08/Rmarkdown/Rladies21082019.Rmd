@@ -1,0 +1,162 @@
+---
+title: "R-ladies 21.08.2019"
+author: "Gunn-Helen Moen"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Quick introduction to Rmarkdown
+You write your document in plain text and you can include *italics* and **bold**
+formats in addition to superscript^2^ and [links](www.rstudio.com). When you
+want a new paragraph you end the line with two spaces.
+You can insert a header by using one or more hashtags:
+
+# Header 1
+
+## Header 2
+
+### and so on
+
+>block quotes
+
+* unordered lists
+* with several items
++ and sub-items
++ more sub-items
+
+1. Ordered lists
+2. Like this
++ with adidional sub-items
+
+You can also make tables:
+
+Table header 1 | Table header 2
+---------------| --------------
+Cell 1 | Cell 2
+Cell 3 | Cell 4
+To add a code chunck to your document write three back ticks followed by {r}. To
+end the code chunck add three more back ticks.
+
+```{r}
+paste("Hello", "R-ladies!")
+```
+
+Within the braces you can add chuck options, `echo=FALSE` will prevent the
+source code from being displayed and the code will look like this:
+```{r echo=FALSE}
+paste("Hello", "R-ladies!")
+```
+Another usefull one is `eval=TRUE` for running the code in the code chunk and
+`eval=FALSE` for not running the code in the code chunk.
+To add comments to your code just use # withing the code chuck window
+```{r eval=FALSE}
+paste("Hello", "R-ladies!") #Add comment
+```
+*Here I've used `eval=FALSE` so that the code won't start running.
+---
+- [Rmarkdown cheetsheet is a useful
+resource](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatshee
+t-2.0.pdf)
+- [As well as the Rmarkdown
+reference](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-referenc
+e.pdf)
+---
+# ggplot2
+GGplot2 is one of the graphing library's in R.
+```{r}
+#install.packages("ggplot2")
+library("ggplot2")
+```
+### ggplot2 graphing consists of three parts
+1. **aesthetic**
++ An aesthetic that tells ggplot which variables are being mapped to the x axis,
+y axis, (and often other attributes of the graph, such as the color fill).
+Intuitively, the aesthetic can be thought of as what you are graphing.
+2. **geom**
++ A geom or geometry that tells ggplot about the basic structure of the graph.
+Intuitively, the geom can be thought of as how you are graphing it.
+3. **options**
++ Other options, such as a graph title, axis labels and overall theme for the
+graph.
+---
+
+##### For this demonstration I will use the R example data mtcars.
+Loading the data and having a look:
+```{r}
+data(mtcars)
+head(mtcars)
+```
+---
+The structure of building a ggplot consist of a `aesthetic` + `one or more
+geoms` + `optional elements`.
+
+```{r}
+ggplot(mtcars, #my dataset
+aes(x=mpg)) + #what I am graphing - here miles per gallon from mtcars dataset
+geom_histogram(fill="blue", #how is it being graphed
+color="black",
+bins = 20)
+```
+
+From here you can start adding labels
+```{r}
+ggplot(mtcars, #my dataset
+aes(x=mpg)) + #what I am graphing - here miles per gallon from mtcars dataset
+geom_histogram(fill="blue", #how is it being graphed
+color="black",
+bins = 20) +
+labs(title = "Miles per gallon",
+subtitle = "Subtitle",
+caption = "mtcars dataset",
+x = "mpg",
+y = "count")
+```
+##### Assigning the aesthetic to an plot
+You can assign your basic ggplot function to a plot so that you wont have to
+call it everytime. For instance:
+```{r}
+p<- ggplot(mtcars, aes(x=mpg))
+```
+#### The different geoms
+There are lot of different geoms you can use.
+##### For one variable you can use plots like:
++ `+ geom_dotplot()` To add a dotplot geometry to the graph.
++ `+ geom_histogram()` To add a histogram geometry to the graph.
++ `+ geom_density()` To add a density plot to the graph.
++ `+ geom_qq()` To add a QQ plot ot the graph
+Example of plot:
+```{r}
+p + geom_dotplot()
+```
+##### For two variable you can use plots like:
++ `+ geom_point()` To add a point (scatterplot) geometry to the graph.
++ `+ geom_smooth()` To add a smoother to the graph.
++ `+ geom_boxplot()` To add a boxplot to the graph.
+To vizualise we need a aesthetic with two variables
+```{r}
+p2<- ggplot(mtcars, aes(x=mpg, y=hp)) 
+#two continous variables (miles pergallon and horsepower)
+```
+Examples of plots:
+Scatterplot:
+```{r}
+p2 + geom_point()
+```
+Scatterplot with Smoother:
+```{r}
+p2 + geom_smooth()
+```
+Combining the two:
+```{r}
+p2 + geom_smooth() + geom_point()
+```
+
+#### Saving your plot
+Save your plot by using `ggsave("plot.png", width = 5, height = 5)`
+
+[ggplot2 cheetsheet is a usefull
+resourse](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-
+2.1.pdf)
