@@ -1,7 +1,17 @@
 
+# Welcome to our October Event!
 
+[RSVP via Meetup](https://www.meetup.com/rladies-brisbane/events/264812385/)
 
-## Miranda Mortlock
+Wednesday, 2 October, 2019
+
+## Introduction to Statistics with R
+
+This is a bring your own laptop. Please bring power boards if you can. We will also do pair-programing.
+
+## Instructor:
+
+### Miranda Mortlock
 
 BSc (Hons), MSc, PhD, Grad Cert (Tertiary Edu) A.Stat C.Stat
 
