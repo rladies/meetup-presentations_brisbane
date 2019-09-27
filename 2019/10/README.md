@@ -3,7 +3,9 @@
 
 [RSVP via Meetup](https://www.meetup.com/rladies-brisbane/events/264812385/)
 
-Wednesday, 2 October, 2019
+Wednesday, 2 October, 2019 
+
+We want to acknowledge Nous Group for hosting us. 
 
 ## Introduction to Statistics with R
 
