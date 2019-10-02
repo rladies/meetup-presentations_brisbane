@@ -5,7 +5,7 @@
 
 Wednesday, 2 October, 2019 
 
-We want to acknowledge Nous Group for hosting us. 
+We want to acknowledge Just Digital People (JDP) for hosting us. 
 
 ## Introduction to Statistics with R
 
