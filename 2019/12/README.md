@@ -1,5 +1,7 @@
 # Welcome to our Joint Christmas Party with R-Ladies and PyLadies Brisbane!
 
+![xmas](xmas_r_py_ladies.jpg)
+
 ## R-Ladies Brisbane
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/RLadiesBrisbane.svg?style=social)](https://twitter.com/RLadiesBrisbane)
