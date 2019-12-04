@@ -13,7 +13,7 @@ Find us on Facebook https://facebook.com/RLadiesBNE
 
 ## Overview
 
-Here you will find presentations of our meetups.
+Here you will find presentations of our meetups [ordered by month](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2019).
 
 ## Community mission
 
