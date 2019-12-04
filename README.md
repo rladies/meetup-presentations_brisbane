@@ -19,6 +19,8 @@ Here you will find presentations of our meetups [ordered by month](https://githu
 
 As a diversity initiative, the mission of R-Ladies is to achieve proportionate representation by encouraging, inspiring, and empowering people of genders currently underrepresented in the R community. R-Ladies’ primary focus, therefore, is on supporting minority gender R enthusiasts to achieve their programming potential, by building a collaborative global network of R leaders, mentors, learners, and developers to facilitate individual and collective progress worldwide.
 
+We are members of R-ladies Global find us on the [dashboard](https://gqueiroz.shinyapps.io/rshinylady/), and here is [how you can get involved](https://rladies.org/about-us/).
+
 ## Code of Conduct
 
 R-Ladies Brisbane is dedicated to providing a harassment-free event experiences for everyone, regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, or religion (or lack thereof). We do not tolerate harassment of event participants in any form. 
