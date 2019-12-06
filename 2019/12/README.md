@@ -13,6 +13,8 @@ Find us on meetup.com [https://www.meetup.com/rladies-brisbane/](https://www.mee
 Find us on meetup.com [https://www.meetup.com/BrisbanePyLadies/](https://www.meetup.com/BrisbanePyLadies/)
 
 
+----
+
 To share the location of this repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
 
 ## Networking event
