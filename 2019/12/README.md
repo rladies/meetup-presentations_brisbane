@@ -21,7 +21,7 @@ To share the location of this repo please use [https://tinyurl.com/rladiesBrisba
 
 * Welcome!!! everyone is welcome, grab a slice of pizza and chat with us!
 * Get to know the group! - Bingo card! Get 5 in a line
-* Activity 2
+* Draw a scribble :)
 
 ### Date
 Thursday 05 Dec 2019
