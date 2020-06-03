@@ -1,0 +1,386 @@
+---
+title: "R-Ladies' - Data Manipulation with R"
+output: html_notebook
+---
+Speaker: Ruth Chirinos
+
+
+# Data transformation
+## Prerequisites
+```{r}
+#install.packages("dplyr")
+library(tidyverse)
+library(nycflights13)
+```
+
+## Data set nycflights13 
+```{r}
+flights
+#
+?flights
+```
+
+More ways to learn basic info on a data.frame.
+```{r}
+names(flights)
+dim(flights)    # ?dim dimension
+ncol(flights)   # ?ncol number of columns
+nrow(flights)   # ?nrow number of rows
+```
+
+```{r}
+summary(flights)
+#install.packages('skimr')
+library(skimr) 
+skim(flights)
+```
+
+Ver el tibble (data frame)
+```{r}
+#View(flights)
+glimpse(flights)
+```
+
+## dplyr basics
+- Pick observations by their values (filter()).
+- Reorder the rows (arrange()).
+- Pick variables by their names (select()).
+- Create new variables with functions of existing variables (mutate()).
+- Collapse many values down to a single summary (summarise()).
+
+### Filter rows with filter()
+
+```{r}
+filter(flights, month == 1, day == 1)
+```
+
+dplyr functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, <-
+```{r}
+( jan1 <- filter(flights, month == 1, day == 1) )
+
+```
+### Comparisons
+
+
+```{r}
+# filter(flights, month = 1)
+```
+```{r}
+sqrt(2) ^ 2 == 2
+1 / 49 * 49 == 1
+#
+near(sqrt(2) ^ 2,  2)
+near(1 / 49 * 49, 1)
+```
+### Logical operators
+
+
+Boolean operators: & is “and”, | is “or”, and ! is “no”
+```{r}
+filter(flights, month == 11 | month == 12)
+```
+Example with %in%
+```{r}
+( nov_dec <- filter(flights, month %in% c(11, 12)) )
+```
+If you wanted to find flights that weren’t delayed (on arrival or departure) by more than two hours, you could use either of the following two filters:
+
+```{r}
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+
+### Missing values
+
+```{r}
+NA > 5
+#> [1] NA
+10 == NA
+#> [1] NA
+NA + 10
+#> [1] NA
+NA / 2
+#> [1] NA
+```
+
+```{r}
+NA == NA
+#> [1] NA
+```
+```{r}
+x <- NA
+y <- NA
+x == y
+#> [1] NA
+# We don't know!
+```
+```{r}
+is.na(x)
+```
+```{r}
+df <- tibble(x = c(1, NA, 3))
+df
+filter(df, x > 1)
+filter(df, is.na(x) | x > 1)
+```
+
+## Arrange rows with arrange()
+
+```{r}
+arrange(flights, year, month, day)
+```
+```{r}
+arrange(flights, desc(dep_delay))
+```
+Missing Values
+```{r}
+df <- tibble(x = c(5, 2, NA))
+arrange(df, x)
+arrange(df, desc(x))
+```
+## Select columns with select()
+
+```{r}
+select(flights, year, month, day)
+```
+```{r}
+select(flights, year:day)
+```
+```{r}
+select(flights, -(year:day))
+```
+```{r}
+rename(flights, tail_num = tailnum)
+```
+```{r}
+select(flights, time_hour, air_time, everything())
+```
+
+## Add new variables with mutate()
+
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+
+Note that you can refer to columns that you’ve just created:
+```{r}
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+
+If you only want to keep the new variables, use transmute():
+```{r}
+transmute(flights,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+## Grouped summaries with summarise()
+
+### Group By
+```{r}
+(by_day <- group_by(flights, year, month, day))
+```
+
+
+```{r}
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+```
+```{r}
+(by_day <- group_by(flights, year, month, day))
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+### Combining multiple operations with the pipe
+
+```{r}
+delay <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+#
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+### Missing values
+```{r}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+```
+
+```{r}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+#
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+```
+
+The story is actually a little more nuanced. We can get more insight if we draw a scatterplot of number of flights vs. average delay:
+```{r}
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+```
+
+With a filter n > 25
+```{r}
+delays %>% 
+  filter(n > 25) %>% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10) # +
+  #geom_smooth(se = FALSE)
+```
+
+### Useful summary functions
+
+Measures of location: we’ve used mean(x), but median(x) is also useful.
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    avg_delay1 = mean(arr_delay),
+    avg_delay2 = mean(arr_delay[arr_delay > 0]) # the average positive delay
+  )
+```
+
+Measures of spread: sd(x), IQR(x), mad(x)
+```{r}
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(distance_sd = sd(distance)) %>% 
+  arrange(desc(distance_sd))
+```
+
+Measures of rank: min(x), quantile(x, 0.25), max(x)
+```{r}
+# When do the first and last flights leave each day?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first = min(dep_time),
+    last = max(dep_time)
+  )
+```
+Measures of position: first(x), nth(x, 2), last(x)
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first_dep = first(dep_time), 
+    last_dep = last(dep_time)
+  )
+```
+
+Filtering on Ranks
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  mutate(r = min_rank(desc(dep_time))) %>% 
+  filter(r %in% range(r))
+```
+
+Counts: You’ve seen n(),
+```{r}
+# Which destinations have the most carriers?
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(carriers = n_distinct(carrier)) %>% 
+  arrange(desc(carriers))
+```
+
+Counts are so useful that dplyr provides a simple helper if all you want is a count:
+```{r}
+not_cancelled %>% 
+  count(dest)
+```
+
+Counts and proportions of logical values: sum(x > 10), mean(y == 0)
+```{r}
+# How many flights left before 5am? (these usually indicate delayed
+# flights from the previous day)
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(n_early = sum(dep_time < 500))
+
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(hour_prop = mean(arr_delay > 60))
+```
+
+### Grouping by multiple variables
+When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to progressively roll up a dataset:
+```{r}
+daily <- group_by(flights, year, month, day)
+(per_day   <- summarise(daily, flights = n()))
+#
+(per_month <- summarise(per_day, flights = sum(flights)))
+#
+(per_year  <- summarise(per_month, flights = sum(flights)))
+
+```
+
+
+### Ungrouping
+```{r}
+daily
+#
+daily %>% 
+  ungroup() %>%             # no longer grouped by date
+  summarise(flights = n())  # all flights
+```
+
+### Grouped mutates (and filters)
+- Find the worst members of each group:
+```{r}
+flights_sml %>% 
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+```
+
+- Find all groups bigger than a threshold:
+```{r}
+popular_dests <- flights %>% 
+  group_by(dest) %>% 
+  filter(n() > 365)
+#
+popular_dests
+```
+
+- Standardise to compute per group metrics:
+```{r}
+popular_dests %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+    select(year:day, dest, arr_delay, prop_delay)
+```
+
+
+
