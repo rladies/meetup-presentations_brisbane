@@ -1,0 +1,619 @@
+Spatial data analysis with R
+========================================================
+author: Dr Reka Solymosi
+date: 01/07/2020
+autosize: true
+
+About Me
+========================================================
+- Research: Crime, victimisation, transport, missing persons
+- Teaching: Data analysis, GIS 
+- Loves: R, transport, data visualisations, walking, eating
+- Twitter: @r_solymosi
+- Website: rekadata.net
+
+How did I get to Brisbane?
+========================================================
+
+
+... A long long time ago in a galaxy far far away... 
+
+
+… I got funding to spend my research leave in Australia!
+========================================================
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/researchleave.png')
+```
+
+
+Also visited Paula at UQ
+========================================================
+incremental: false
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/uq.jpg')
+```
+
+--
+***
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/bcs.jpg')
+```
+
+Bystander intervention in sexual harassment
+========================================================
+incremental: false
+
+<br><br>
+The Project: How do victims of sexual harassment perceive ‘indirect’ intervention by bystanders?
+
+***
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/respvic.png')
+```
+
+
+Exciting research design
+========================================================
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/gsr.png')
+```
+
+--
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/scenario_2.gif')
+```
+
+Project progress
+========================================================
+incremental: true
+
+--
+✓ Ethics approval
+--
+✓ Scenarios written and filmed
+--
+✓ VR lab booked
+--
+✓ GSR sensor and questionnaires ready
+--
+X Data collection with pilot participants
+--
+
+COVID-19 struck
+========================================================
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/tp.png')
+```
+
+Talk was canceled :(
+========================================================
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/cancelled.png')
+```
+
+
+... until now!
+========================================================
+
+So let's now explore spatial data analysis in R
+
+packages 
+========================================================
+
+```{r, eval = FALSE}
+
+install.packages('rnaturalearth', 'sf', 'tmap', 'spatstat', 'raster', 'leaflet', 'dplyr')
+
+
+```
+
+
+What is spatial information?
+========================================================
+
+- Place
+- Attributes
+- Objects (points, lines, areas (polygons))
+
+
+Points, lines, polygons
+=======================================================
+<div align="center">
+<img src="img/bakerloo_line_ptlinepoly.png" height=400>
+</div>
+
+
+
+[https://rekadata.net/blog/hot-routes-tutorial/](https://rekadata.net/blog/hot-routes-tutorial/)
+
+
+An example
+========================================================
+
+Get some data
+
+```{r}
+
+covid19 <- read.csv("https://covid19.who.int/WHO-COVID-19-global-data.csv")
+
+```
+
+Wrangle the data
+========================================================
+
+```{r}
+
+library(dplyr)
+
+covid19 <- covid19 %>% 
+  select(Country, Cumulative_deaths) %>% 
+  group_by(Country) %>% 
+  summarise(maxcd = max(Cumulative_deaths))
+
+```
+
+
+Let's see
+========================================================
+
+```{r}
+
+head(covid19)
+
+```
+
+
+So...
+=======================
+
+...how to put this on a map?
+
+--
+
+We need some sort of reference
+
+
+RNaturalearth
+=======================
+
+```{r}
+library(rnaturalearth)
+```
+
+**rnaturalearth** does two main things.
+
+1. Contains pre-downloaded vector maps for :
+    + countries `ne_countries()`
+    + states `ne_states()`
+    + coastline `ne_coastline()`
+2. Has `ne_download()` function to facilitate download of other vector and raster maps.
+
+see more here: [https://cran.r-project.org/web/packages/rnaturalearth/vignettes/rnaturalearth.html](https://cran.r-project.org/web/packages/rnaturalearth/vignettes/rnaturalearth.html)
+
+Get an outline for a world map
+===================================
+
+```{r}
+
+world <- ne_countries(returnclass='sf')
+
+```
+
+Plot the geometry with sf
+===================================
+
+```{r fig.align="center"}
+library(sf)
+
+plot(st_geometry(world))
+
+```
+
+
+View attributes of 'world'
+===================================
+
+```{r}
+
+head(world)
+
+```
+
+Variables in 'world'
+===================================
+
+```{r}
+
+names(world)
+
+```
+
+Join the covid19 data
+===================================
+
+```{r}
+
+cov_map <- left_join(world, covid19, by = c("sovereignt" = "Country"))
+
+```
+
+Plot with tmap
+===================================
+
+```{r fig.align="center"}
+
+library(tmap)
+
+tm_shape(cov_map) + 
+  tm_polygons("maxcd")
+
+```
+
+
+Missing? 
+===================================
+
+```{r}
+
+cov_map %>% filter(is.na(maxcd)) %>% select(sovereignt)
+
+```
+
+
+Other columns for name?
+===================================
+
+```{r}
+
+names(world)
+
+```
+
+
+Create new column for joining
+===================================
+
+```{r}
+
+world <- world %>% 
+  mutate(joining_name = case_when(
+    sovereignt %in% covid19$Country ~ sovereignt,
+    admin %in% covid19$Country ~ admin,
+    name %in% covid19$Country ~ name, 
+    name_long %in% covid19$Country ~ name_long, 
+    brk_name %in% covid19$Country ~ brk_name,
+    formal_en %in% covid19$Country ~ formal_en, 
+    name_sort %in% covid19$Country ~ name_sort,
+    name_alt %in% covid19$Country ~ name_alt
+    ))
+
+```
+
+
+
+Join again
+===================================
+
+```{r}
+
+cov_map <- left_join(world, covid19, by = c("joining_name" = "Country"))
+
+```
+
+
+Map
+===================================
+
+```{r, fig.align="center"}
+
+tm_shape(cov_map) + 
+  tm_polygons("maxcd")
+
+```
+
+
+Other shapes
+===================================
+
+```{r, fig.align="center"}
+
+tm_shape(cov_map) + 
+  tm_bubbles("maxcd")
+
+```
+
+
+Add context
+===================================
+
+```{r, fig.align="center"}
+
+tm_shape(cov_map) + 
+  tm_borders() + 
+  tm_bubbles("maxcd")
+
+```
+
+
+More shapes
+==================================
+
+```{r fig.align="center",  echo=FALSE}
+   knitr::include_graphics('img/cartohexpaper1.png')
+```
+
+***
+```{r fig.align="center",  echo=FALSE}
+   knitr::include_graphics('img/cartohexpaper2.png')
+```
+
+[https://journals.sagepub.com/doi/abs/10.1177/2399808319873923](https://journals.sagepub.com/doi/abs/10.1177/2399808319873923) (or [pre-print](https://osf.io/preprints/socarxiv/t6agd/))
+
+
+What about points?
+========================================================
+
+Get some data from Greater Manchester Police (I've already downloaded but all available from [data.police.uk](https://data.police.uk/)):
+
+```{r}
+crimes <- read.csv("https://raw.githubusercontent.com/jjmedinaariza/CrimeMapping/master/gmpcrime.csv")
+burglary <- filter(crimes, crime_type == "Burglary")
+head(burglary)
+```
+
+
+Making long and lat 'spatial'
+========================================================
+
+Transform the dataframe with crime information into a sf object
+
+```{r}
+
+burglary_spatial <-  st_as_sf(burglary, coords = c("long", "lat"), 
+                 crs = 4326, agr = "constant")
+
+```
+
+
+Plot
+========================================================
+
+```{r fig.align="center"}
+
+plot(st_geometry(burglary_spatial))
+
+```
+
+
+Subset based on location
+========================================================
+
+Get polygon for Manchester wards, select 'Fallowfied' ward 
+
+```{r fig.align="center", message = FALSE, warning = FALSE}
+
+manchester_ward <- st_read("https://raw.githubusercontent.com/RUMgroup/Spatial-data-in-R/master/rumgroup/data/wards.geojson", quiet = TRUE)
+
+fallowfield <- manchester_ward %>% filter(wd16nm == "Fallowfield")
+
+plot(st_geometry(fallowfield))
+
+```
+
+
+CRS
+========================================================
+
+```{r}
+#Change coordinate systems
+st_crs(burglary_spatial)
+```
+
+***
+```{r}
+st_crs(fallowfield)
+```
+
+CRS
+========================================================
+
+```{r}
+st_crs(fallowfield) == st_crs(burglary_spatial)
+```
+
+Change CRS
+========================================================
+
+```{r}
+
+fallowfield <- st_transform(fallowfield, 4326)
+
+```
+
+
+Select burglaries within ward boundary
+========================================================
+
+intersection
+
+```{r}
+bur_fal <- st_intersects(fallowfield, burglary_spatial)
+```
+***
+subsetting
+
+```{r}
+bur_fal <- burglary_spatial[unlist(bur_fal),]
+```
+
+
+Check in
+============================================
+
+```{r fig.align="center"}
+tm_shape(fallowfield) + 
+  tm_fill() +
+  tm_shape(bur_fal) +
+  tm_dots()
+```
+
+
+
+
+Let's look at some point patterns
+============================================
+
+```{r}
+
+library(spatstat)
+
+```
+
+
+First we transform the CRS (spatstat requires projected coordinates)
+
+```{r}
+fallowfield_proj <- st_transform(fallowfield, 27700)
+```
+
+Then we use the as.owin function to define the window. 
+
+```{r}
+window <- as.owin(fallowfield_proj)
+```
+
+
+More data prep
+==============================================
+Extract the coordinates from our sf point data into a matrix
+
+```{r}
+
+bur_fal <- st_transform(bur_fal, 27700) #we must transform these too to match our window in BNG
+sf_bur_fal_coords <- matrix(unlist(bur_fal$geometry), ncol = 2, byrow = T)
+
+```
+
+Use the `ppp` function to create the object using the information from our matrix and the window that we created.
+
+```{r}
+bur_ppp <- ppp(x = sf_bur_fal_coords[,1], y = sf_bur_fal_coords[,2],
+                   window = window, check = T)
+```
+
+
+Duplicates?
+==============================================
+We can check the duplication in a `ppp` object:
+
+```{r}
+any(duplicated(bur_ppp))
+```
+
+And count the number of coincidence points: 
+
+```{r, eval=FALSE}
+sum(multiplicity(bur_ppp) > 1)
+```
+
+
+Check-in
+==============================================
+```{r fig.align="center"}
+tm_shape(fallowfield) + 
+  tm_fill() +
+  tm_shape(bur_fal) +
+  tm_dots(alpha=0.4, size=1)
+```
+
+
+Jitter
+==============================================
+```{r fig.align="center"}
+jitter_bur <- rjitter(bur_ppp, retry=TRUE, nsim=1, drop=TRUE)
+plot(jitter_bur)
+```
+
+
+Quadrants
+==============================================
+
+```{r fig.align="center"}
+Q <- quadratcount(jitter_bur, nx = 4, ny = 3)
+plot(jitter_bur)
+plot(Q, add = TRUE, cex = 2)
+
+```
+
+Kernel Density Estimation maps
+==============================================
+
+```{r fig.align="center", echo=FALSE}
+   knitr::include_graphics('img/kde.png')
+```
+
+
+Making KDE maps
+==============================================
+```{r fig.align="center"}
+ds <- density(jitter_bur)
+plot(ds, main='Burglary density in Fallowfield')
+```
+
+
+Adding context: turn the KDE map into a raster layer
+==============================================
+
+
+```{r}
+library(raster)
+```
+
+```{r}
+dmap1 <- density.ppp(jitter_bur, sigma = bw.ppl(jitter_bur),edge=T)
+r1 <- raster(dmap1)
+#remove very low density values
+r1[r1 < 0.0001 ] <- NA
+
+```
+
+
+
+
+Add projection to raster layer
+==============================================
+
+```{r}
+
+crs(r1) <- "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+
+```
+
+And map with leaflet
+==============================================
+
+```{r}
+library(leaflet)
+```
+
+```{r, eval = FALSE}
+leaflet() %>% 
+  addTiles() %>%
+  addRasterImage(r1, opacity = 0.8)
+```
+
+Map here: [https://rekadata.net/talks/leaflet_kde_map.html](https://rekadata.net/talks/leaflet_kde_map.html)
+
+
+Resources
+===========================================
+- Crime Mapping Textbook in progress: [https://maczokni.github.io/crime_mapping/](https://maczokni.github.io/crime_mapping/)
+- Cartograms hexograms etc: [https://journals.sagepub.com/doi/abs/10.1177/2399808319873923](https://journals.sagepub.com/doi/abs/10.1177/2399808319873923) (or [pre-print](https://osf.io/preprints/socarxiv/t6agd/)))
+- [Hot routes tutorial](https://rekadata.net/blog/hot-routes-tutorial/)
+- [Spatstat vignette](https://cran.r-project.org/web/packages/spatstat/vignettes/shapefiles.pdf)
+- [Geocomputation with R](https://geocompr.robinlovelace.net/)
