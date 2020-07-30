@@ -7,7 +7,7 @@ Find us on meetup.com [https://www.meetup.com/rladies-brisbane/](https://www.mee
 
 To share the location of this GitHub repo please use [https://tinyurl.com/rladiesBrisbane](https://tinyurl.com/rladiesBrisbane)
 
-Join the conversation on Slack https://tinyurl.com/RladiesBrisbaneSlack
+Join the conversation on Slack please use [this invitation](https://join.slack.com/t/r-ladiesbrisbane/shared_invite/zt-8ymmwijo-nKR2~U7aYjMn0sFdQspH1w)
 
 Find us on Facebook https://facebook.com/RLadiesBNE
 
