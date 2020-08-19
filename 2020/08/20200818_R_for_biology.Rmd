@@ -1,0 +1,258 @@
+---
+title: "Randomisation of samples on genotyping chip"
+subtitle: "Randomise samples to avoid plate / batch effects in analyses"
+author: "Anna Vinkhuyzen"
+email: "hacqconsulting@gmail.com"
+date: "18/08/2020"
+output: html_document
+---
+
+***
+***
+
+```{r packages, message=FALSE, echo=FALSE}
+library(rmarkdown)  
+library(qqman)
+library(plyr)
+library(dplyr)
+library(platetools)
+library(ggplot2)
+library(viridis)
+library(data.table)
+library(janitor)
+library(fabricatr) 
+library(crosstabr) # devtools::install_github("tklebel/crosstabr")
+
+```
+
+# Brief
+
+*From lab manager:*
+ 
+We have a target list with Autism cases and healthy controls. We wish for you to generate a plating manifest for running on GSA chips (Infinium Global Screening / Genome-Wide Association, GWA). Samples should be randomly distributed across plates and visual inspection is required to make sure no accidental grouping of cases / sex / cohorts excist on particular plates.
+
+Please could you leave **D3**  free for a technical control.
+
+The attached data contains all the patient information, below is the list of column headers in the file. Hoping that you will have all the info you need to generate a manifest.
+ 
+* *ID*, unique study ID
+* *case.control*, control = 0, case = 1
+* *sex*, male = 0, female = 1
+* *cohort*, 5 participating cohorts, cohort.1 - cohort.5
+
+***
+***
+
+```{r data, message=FALSE, warning=FALSE, echo=FALSE, results=FALSE}
+
+## Fabricate data for presentation purposes
+
+n.plates <- 10 # number of plates
+n.wells <- n.plates*96
+n.technical.controls <- n.plates
+n.participants <- n.wells - n.technical.controls
+
+## variables required: 
+  # ID
+  # Autism disease status (case.control)
+  # sex
+  # cohort
+
+## create correlated vectors with 
+  # Autism cases 
+  # Cohorts
+  # Sex
+
+ID <- round(runif(n.participants, min=10000, max=99999),0)
+
+### 950 study participants
+## approx 60% case
+## approx 50% female
+## unequal distribution across cohorts
+## both sex and cohort are associated with proportion of cases, 
+  # i.e, autism more common in males and more common in some cohorts
+
+data <- fabricate(
+  N = 950,
+  case.control = draw_binomial(prob = 0.6, trials = 1, N = N),
+  sex = correlate(given = case.control,
+                                    rho = 0.7,
+                                    draw_binomial,
+                                    prob = 0.4,
+                                    trials = 1),
+  cohort = correlate(given = case.control,
+                             rho = 0.3,
+                             draw_binomial,
+                             prob = 0.5,
+                             trials = 4)
+)
+
+data$cohort <- replace(data$cohort, data$cohort==0, 5)
+
+```
+
+## Descriptive analyses of the provided data
+
+```{r visual inspection, message=FALSE, warning=FALSE, echo=FALSE}
+
+## create temp data.frame with informative labels
+data.tmp <- data
+
+data.tmp$sex <- replace(data.tmp$sex, data.tmp$sex==0, "male")
+data.tmp$sex <- replace(data.tmp$sex, data.tmp$sex==1, "female")
+
+data.tmp$case.control <- replace(data.tmp$case.control, data.tmp$case.control==0, "control")
+data.tmp$case.control <- replace(data.tmp$case.control, data.tmp$case.control==1, "case")
+
+# bar plot case.control & cohort
+counts <- table(data.tmp$case.control, data.tmp$cohort)
+barplot(counts, main="case.control by cohort",
+  xlab="cohort", ylab="number of cases/controls", col=c("darkblue","red"),
+  legend = c("control", "case")) 
+
+# bar plot case.control & sex
+counts <- table(data.tmp$case.control, data.tmp$sex)
+barplot(counts, main="case.control by sex",
+  xlab="sex", ylab="number of cases/controls", col=c("darkblue","red"),
+  legend = c("control", "case")) 
+
+# cross-table case.control & sex
+data.tmp %>%
+  crosstab(case.control~sex)
+
+# cross-table case.control & cohort
+data.tmp %>%
+  crosstab(case.control~cohort)
+
+```
+
+
+## Creating plates
+
+I am assuming plates with  96 wells, that is 8 rows (A,B,C,D,E,F,G) and 12 columns (1:12)
+
+I include 1 technical control on each plate: well D3 
+
+Samples will be randomized across plates
+
+```{r create plates, message=FALSE, warning=FALSE, echo=FALSE, results=FALSE }
+
+## create manifests data.frames
+
+n.plates ## based on the above
+n.rows <- 8 ## fixed
+n.cols <- 12 ## fixed
+
+# plates
+rows.per.plate <- rep(c("A", "B", "C", "D", "E","F","G","H"),n.cols)
+cols.per.plate <- rep(1:n.cols, each=n.rows)
+
+rows.all.plates <- rep(rows.per.plate, n.plates)
+cols.all.plates <- rep(cols.per.plate, n.plates)
+
+plate.number <- rep(1:n.plates, each=96)
+
+plate.design <- data.frame(plate.number,rows.all.plates,cols.all.plates) 
+names(plate.design) [2] <- "row"
+names(plate.design) [3] <- "column"
+
+#split the manifest data.frame into two data.frames, 1 for control and 1 for samples 
+
+## we have 1 technical control on each plate: D3
+plate.design.controls <- plate.design[which(plate.design$row=="D" & 
+                                        plate.design$column==3),]
+## we have n.participants number of samples
+plate.design.samples <- plate.design[!(plate.design$row=="D" & plate.design$column==3),]
+## attach seq.number to enable merging with data
+plate.design.samples$seq.number <- seq(1:n.participants)
+
+```
+
+
+```{r randomize, message=FALSE, warning=FALSE, echo=FALSE, results=FALSE}
+
+# randomize input set and add to plates
+
+## randomize set
+head(data)
+dim(data)
+## attach seq.number to enable merging with plate.design
+data$seq.number <- sample(1:nrow(data), replace=FALSE) 
+data.2 <- data[order(data$seq.number),]
+
+####################################################################################
+
+## combine manifest with data
+plate.design.samples <- merge(plate.design.samples, data.2, all = TRUE)
+
+## add  controls
+plate.design.controls[,colnames(data.2)] <- "TECH_CONTROL"
+
+plate.design.all <- rbind(plate.design.samples, plate.design.controls)
+plate.design.all <- plate.design.all[order(plate.design.all$plate.number, plate.design.all$row, plate.design.all$column),]
+plate.design.all
+
+```
+
+
+## Plots of the plates with randomized samples
+
+Note that variables are displayed as numerical variables as the plotting code requires variables to be numeric. 
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=15, fig.height=30}
+names <- c("case.control", "sex","cohort", "plate.number","row","column")
+plate.design.for.plot <- plate.design.all[names]
+#head(plates.for.plot)
+
+## case.control
+plate.design.for.plot$case.control <- replace(plate.design.for.plot$case.control, plate.design.for.plot$case.control=="TECH_CONTROL", 2)
+plate.design.for.plot$case.control <- as.numeric(plate.design.for.plot$case.control)
+
+# cohort
+plate.design.for.plot$cohort <- replace(plate.design.for.plot$cohort, plate.design.for.plot$cohort=="TECH_CONTROL", 6)
+plate.design.for.plot$cohort <- as.numeric(plate.design.for.plot$cohort)
+
+# sex
+plate.design.for.plot$sex <- replace(plate.design.for.plot$sex, plate.design.for.plot$sex=="TECH_CONTROL", 2)
+plate.design.for.plot$sex <- as.numeric(plate.design.for.plot$sex)
+
+names(plate.design.for.plot)[names(plate.design.for.plot) == 'plate.number'] <- 'Sample_Plate'
+
+plate.design.for.plot$Sample_Well <- paste(plate.design.for.plot$row, plate.design.for.plot$column, sep="")
+
+## case.control
+ raw_grid(data = plate.design.for.plot$case.control,
+         well = plate.design.for.plot$Sample_Well,
+         plate_id = plate.design.for.plot$Sample_Plate       ) +
+  scale_fill_distiller(type = "div") +
+  ggtitle("Plates with case-control status; 0=control; 1=case, 2=technical control")
+
+ ## sex
+ raw_grid(data = plate.design.for.plot$sex,
+         well = plate.design.for.plot$Sample_Well,
+         plate_id = plate.design.for.plot$Sample_Plate       ) +
+  scale_fill_distiller(type = "div") +
+  ggtitle("Plates with sex status; 0=male; 1=female; 2=technical control")
+ 
+  ## cohort
+ raw_grid(data = plate.design.for.plot$cohort,
+         well = plate.design.for.plot$Sample_Well,
+         plate_id = plate.design.for.plot$Sample_Plate       ) +
+  scale_fill_distiller(type = "div") +
+  ggtitle("Plates with cohort status: 1=cohort.1; 2=cohort.2; 3=cohort.3; 4=cohort.4; 5=cohort.5; 6=technical control")
+ 
+ #dev.off()
+
+```
+
+
+
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE}
+# write manifest
+
+## write file for lab
+fileout <- "~/Documents/Prive/HACQ/Presentations/20200818_RLadies/20200818_Autism_GSA_Manifest.csv" 
+write.csv(plate.design.all,fileout, row.names=FALSE, quote=FALSE, na="NA")
+
+```
