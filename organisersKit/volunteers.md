@@ -2,13 +2,16 @@
 
 We would like to express your thanks to the organisers and helpers that have made events possible throught the time.
 
+If you are interested in helping out please reach out to us, and we will onboard you as a organiser or helper!
+
 ## Founder
 
-- Paula Andrea Martinez. Founder RLadies Brisbane in May 2018.
+- Paula Andrea Martinez [@orchid00](twitter.com/orchid00). Founded RLadies Brisbane in May 2018.
 
 ## Co-organisers
 - Catherin Kim, started helping co-organise events in August 2020
 - Valentine Murigneux, started helping co-organise events in December 2019
+- Paula Andrea Martinez [@orchid00](twitter.com/orchid00). Started co-organising events in January 2019.
 
 ## Past Co-organises
 
