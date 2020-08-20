@@ -1,7 +1,7 @@
 # RLadies Brisbane Chapter
 
 ## 1. Organising events
-Here is a checklist to tasks for organising events
+Here is a checklist of tasks needed for organising events
 
 - [ ] Find a volunteer speaker, either by direct invitation or by public call of speakers
 - [ ] Ask speaker(s) to fill in [the Speaker form](https://docs.google.com/forms/d/e/1FAIpQLSdSXnZf3ZAXoO64hjwYzzYG5ABusYWRsVwJSHBtMxE2OZ3U0w/viewform) to organise the event. It can be a one hour session or shorter 2 or 3 presentations.
