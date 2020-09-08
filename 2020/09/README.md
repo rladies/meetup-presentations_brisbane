@@ -3,7 +3,7 @@
 ## September 9, 2020 5:30 PM AEST 
 ## Speaker
 
-- Caitie Kueple
+- Caitie Kuempel
 
 Welcome to our September Event!
 
