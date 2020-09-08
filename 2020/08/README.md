@@ -5,7 +5,8 @@
 
 - [Anna Vinkhuyzen](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2020/08/20200818_R_for_biology.Rmd)
 - [Valentine Murigneux](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2020/08/20200819_RLADIES_Valentine_Murigneux.pdf)
-- Anna Jaeschke
+- [Anna Jaeschke](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2020/08/2020-08_RLadiesPresentation_AnnaJ.html)
+
 
 ## Announcements
 
