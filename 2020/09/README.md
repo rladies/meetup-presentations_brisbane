@@ -14,3 +14,9 @@ All new and old members welcome, we will have time to meet before the presentati
 The original files for this presentation live on Caities's Github Repo [https://github.com/cdkuempel/getting_started_github](https://github.com/cdkuempel/getting_started_github).
 The file *[Github_presentation.Rmd]()* was copied to this folder for archival. The HTML version of the presentation can be knitted with the rmd.
 
+## Extra resources
+
+- https://git-scm.com/downloads
+- https://guides.github.com/activities/citable-code/
+- https://happygitwithr.com/existing-github-last.htm
+
