@@ -1,0 +1,444 @@
+---
+title: "GSEA Pretty Plots"
+author: |
+  | Anna Jaeschke
+  | Twitter: @anna_jaey
+  | Github: anna-jaey
+date: "21/08/2020"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 12, fig.width = 8)
+```
+
+# Pretty Plots for GSEA results
+
+This is a step-by-step protocol on how to use R for gene set enrichment analysis and visualisation.
+We use the api for the **D**atabase for **A**nnotation, **V**isualization and **I**ntegrated **D**iscovery [**DAVID**](https://david.ncifcrf.gov/) for functional annotation and annotation clustering of a gene list.
+Then, using the `GOplot` package the data is prepared for plotting.
+Finally, functional annotation results and clusters will be plotted using graphs developed on the basis of the `GOplot` package.
+
+To compile this `rmd` document, make sure to register for the DAVID api and change the email adress (see [below](#RDavidWebService)).
+Be aware that knitting the `rmd` doc might take a couple of minutes.
+
+## Packages
+
+```{r packages, message=FALSE}
+packages <- c("openxlsx",
+              "RDAVIDWebService",
+              'GOplot',
+              'stringr',
+              'dplyr',
+              'ggplot2',
+              'ggrepel',
+              'ggnewscale',
+              'grid')
+pck.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+# source: https://vbaliga.github.io/verify-that-r-packages-are-installed-and-loaded/
+```
+
+## Read in the gene list
+
+We start with a gene list which is dervived from a MS/MS analysis.
+It contains the Uniprot Accession numbers and logFC between two groups of interest.
+The gene list is published [DOI:10.1016/j.mtbio.2020.100073](https://doi.org/10.1016/j.mtbio.2020.100073) and we can read it directly from the url.
+
+```{r genelist}
+gene.list <- read.xlsx("https://ars.els-cdn.com/content/image/1-s2.0-S2590006420300338-mmc1.xlsx", sheet = 1, startRow = 2) 
+# The gene list data fram contains other information/columns which are not needed
+gene.list <- gene.list[,c('Accession', 'logFC.CAF:NPF')] # remove the other columns
+colnames(gene.list) <- c('ID', 'logFC')
+head(gene.list)
+```
+
+## RDavidWebService
+
+We can use the `RDAVIDWebService` package to use the DAVID api from within R.
+It might be a little slow to use, but it's worthwhile when working with several lists. 
+Prepare the script, run the script and have a coffee while waiting for the results ;).
+
+[Register here](https://david.ncifcrf.gov/webservice/register.htm) with your email address to use the DAVID Webservice.
+
+### Prepare the connection to DAVID
+
+
+```{r email2, include=TRUE, eval=FALSE}
+e_mail <- 'registered@user.com' # change to the email address you have registered with
+```
+
+
+```{r david}
+# create a david object
+david<-DAVIDWebService$new(email = e_mail,
+                           url =  'https://david.ncifcrf.gov/webservice/services/DAVIDWebService.DAVIDWebServiceHttpSoap12Endpoint/' )
+
+```
+
+### Functional Annotation
+
+```{r fctannot}
+# set the relevant annotation categories
+getAllAnnotationCategoryNames(david) # view the available categories
+setAnnotationCategories(david, c('GOTERM_CC_FAT',
+                                 'GOTERM_MF_FAT',
+                                 'GOTERM_BP_FAT',
+                                 "UP_KEYWORDS",
+                                 "KEGG_PATHWAY")) # set the categories
+
+res <- addList(david,
+        gene.list$ID, # genes
+        idType = "UNIPROT_ACCESSION", # ID type of genes (ENTREZ, ENSEMBL, Uniprot, ...)
+        listName = 'Test genes', # Name of the list
+        listType = 'Gene') # 'Gene' or'Background'
+res
+
+setCurrentGeneListPosition(david,1) # only necessary for several lists, can be used in a for loop
+
+# get functional annotation of the current gene list
+fct.annot <- getFunctionalAnnotationChart(david,
+                                          threshold = 0.1, # EASE Threshold
+                                          count = 2L # minimum count
+                                          )
+```
+
+Alternatively, use `getFunctionalAnnotationChartFile(david, fileName = filename, threshold = threshold, count = count)` to save the annotation results to a file right away.
+
+## Prepare data for plotting
+
+We use the `GOplot` package to calculate z-scores for the plots.
+
+```{r prepare}
+# prepare an annotation df from the functional annotation results to use with GOplot
+annot_df <- data.frame(
+  ID = str_split_fixed(fct.annot[["Term"]], "~", 2)[,1], # The GOTerms are annotated [GOTerm]~[Description], remove the [Description] part
+  category = fct.annot[["Category"]], # functional annotation category
+  term = str_split_fixed(fct.annot[["Term"]], "~", 2)[,2], # The actual description
+  count = fct.annot[['Count']],
+  FoldEnrichment = fct.annot[["Fold.Enrichment"]],
+  genes = fct.annot[["Genes"]], 
+  adj_pvals = fct.annot[["Benjamini"]], # or Bonferroni or FDR
+  stringsAsFactors = F
+  )
+
+# for non GO categories, we have to adapt the term and id columns a bit
+annot_df[annot_df$category %in% c("UP_KEYWORDS", "KEGG_PATHWAY"),]$term <-annot_df[annot_df$category %in% c("UP_KEYWORDS", "KEGG_PATHWAY"),]$ID
+annot_df[annot_df$category == "KEGG_PATHWAY",]$term <-str_split_fixed(annot_df[annot_df$category == "KEGG_PATHWAY",]$term, ":", 2)[,2]
+annot_df[annot_df$category == "KEGG_PATHWAY",]$ID <-str_split_fixed(annot_df[annot_df$category == "KEGG_PATHWAY",]$ID, ":", 2)[,1]
+
+head(annot_df, 1)
+## calculate z score
+go_data <- circle_dat(annot_df, gene.list) # it is important to get the colnames right, see ?circle_data for details
+head(go_data)
+
+```
+
+## Plotting the functional annotation
+
+To make a bubble plot of the functional annotation data, we use only the top/bottom 10 categories and remove potential duplicates.
+
+```{r bubble}
+sub_df <- go_data[!duplicated(go_data$term), ]
+min_pval = 0.05
+cat.sub<-NULL
+for (cats in unique(sub_df$category)){
+  top_10 <- sub_df%>%filter(adj_pval<=min_pval & category == cats)%>%top_n(5, zscore)
+  bottom_10 <- sub_df%>%filter(adj_pval<=min_pval & category == cats)%>%top_n(-5, zscore)
+  top_10$num <- seq(0,100, length.out = nrow(top_10)) # the num variable is used to place the big bubbles on the x axis
+  bottom_10$num <- seq(0,100, length.out = nrow(bottom_10))
+  cat.sub <- rbind(cat.sub, top_10, bottom_10)
+}
+
+# these are the terms we use for the plot
+cat.sub <- cat.sub[, c(c("category", "term", "zscore", "count", 'num'))]
+head(cat.sub)
+
+# join it to the GOplot data
+go_data <- go_data[go_data$term %in% cat.sub$term,]
+go_data<-left_join(go_data, cat.sub)
+
+# for colouring the small points (genes) accordingly
+go_data$fill<-NA
+go_data[go_data$logFC>0,]$fill<-"up"
+go_data[go_data$logFC<0,]$fill<-"down"
+
+# and set the y-variable for the plot from the zscore
+go_data$y<-go_data$zscore
+go_data[go_data$logFC>0,]$y<-go_data[go_data$logFC>0,]$y*1.1
+go_data[go_data$logFC<0,]$y<-go_data[go_data$logFC<0,]$y*0.9
+
+# remove small cell lung cancer annotation as it's not relevant
+cat.sub<-cat.sub[cat.sub$term!= "Small cell lung cancer",]
+go_data<-go_data[go_data$term!= "Small cell lung cancer",]
+cat.sub$text_y<-cat.sub$zscore*0.95
+
+# make the facet labels pretty
+rename.cat <- c("GO Cellular Component", "GO Biological Process", "GO Molecular Function", "UniProt Keyword", "KEGG Pathway")
+names(rename.cat) <- c("GOTERM_CC_FAT", "GOTERM_BP_FAT", "GOTERM_MF_FAT", "UP_KEYWORDS", "KEGG_PATHWAY")
+
+funct_annot_plot <- 
+  ggplot() +
+  geom_hline(yintercept =0, linetype =2, alpha = 0.5)+ # a horizontal line at zscore = 0
+  geom_jitter(data=go_data, mapping=aes(y=y, x=num, color = fill), size =2, height = 0.5, width =5, alpha =1/3)+ # the small bubbles of the genes
+  scale_color_manual("logFC", values = c("#3333ff", "#ff3333"), guide="none") +
+  new_scale_color() + # use the ggnewscale package to adjust the colours for the small and the big bubbles
+  geom_point(data = cat.sub, mapping = aes(y=zscore, x=num, size = count, color = category), alpha =0.7) + # big bubbles describing the annotation terms
+  scale_size(range = c(5,40), guide = 'none') +
+  scale_color_manual("Category", values = c("#0086b3","#00ace6", "#1ac6ff", "#e6b800", "#ffb380"), guide = "none") +
+  geom_text_repel(data=cat.sub, aes(x=num, y=text_y, label = term), fontface=2, size = 3.5) + # the ggrepel packages helps with the annotation
+  scale_x_continuous("", limits = c(-20,110))+
+  scale_y_continuous(limits =c (-9,12))+
+  guides(shape = guide_legend(override.aes = list(size = 2)))+
+  ylab("Z-Score") +
+  facet_grid(category~., space="free", labeller = labeller(category = rename.cat))+
+  theme_minimal() +
+  theme(
+  axis.title.x=element_blank(),
+  axis.text.x=element_blank(),
+  axis.ticks.x=element_blank(),
+  axis.text = element_text(size = 9),
+  title =  element_text(size = 10),
+  axis.title = element_text(size = 12),
+  axis.text.y =  element_text(size = 11),
+  strip.text = element_text(size = 11),
+  legend.text = element_text(size = 10),
+  legend.title = element_text(size = 10),
+  axis.title.y = element_text(margin = margin(t = 0, r = 5, b = 0, l = 0)),
+  axis.ticks.length=unit(.125, "cm"),
+  rect = element_rect(fill = "transparent"),
+  plot.background = element_rect(fill = "transparent",color = NA),
+  panel.grid.minor = element_blank(), 
+  panel.grid.major = element_blank(),
+  panel.border = element_rect(size=1),
+  axis.ticks = element_line(colour = "black", size = 0.75),
+  strip.background =element_rect(fill="transparent", color = 'transparent'),
+)
+
+print(funct_annot_plot)
+```
+
+For longer annotation terms, it might be worthwhile to include linebreaks (`\n`) manually:
+
+```{r breaks}
+cat.sub[cat.sub$term == "cell adhesion molecule binding",]$term<-"cell adhesion\nmolecule binding"
+cat.sub[cat.sub$term == "protein binding involved in cell adhesion",]$term<-"protein binding involved\nin cell adhesion"
+cat.sub[cat.sub$term == "cadherin binding involved in cell-cell adhesion",]$term<-"cadherin binding\ninvolved in\ncell-cell adhesion"
+cat.sub[cat.sub$term == "extracellular matrix structural constituent",]$term<-"extracellular matrix\nstructural constituent"
+cat.sub[cat.sub$term == "movement of cell or subcellular component",]$term<-"movement of cell\nor subcellular component"
+cat.sub[cat.sub$term == "integrin binding",]$term<-"integrin binding"
+cat.sub[cat.sub$term == "identical protein binding",]$term<-"identical\nprotein\nbinding"
+cat.sub[cat.sub$term == "membrane-bounded vesicle",]$term <-"membrane-bounded\nvesicle"
+cat.sub[cat.sub$term == "cell-substrate adherens junction",]$term<-"cell-substrate\nadherens junction"
+cat.sub[cat.sub$term == "extracellular matrix organization",]$term<-"extracellular matrix\norganization"
+cat.sub[cat.sub$term == "extracellular structure organization",]$term<-"extracellular structure\norganization"
+cat.sub[cat.sub$term == "intracellular ribonucleoprotein complex",]$term<-"intracellular\nribonucleoprotein\ncomplex"
+cat.sub[cat.sub$term == "ribonucleoprotein complex biogenesis",]$term<-"ribonucleoprotein complex\nbiogenesis"
+cat.sub[cat.sub$term == "ribonucleoprotein complex",]$term<-"ribonucleoprotein complex"
+cat.sub[cat.sub$term == "mitotic cell cycle process",]$term<-"mitotic\ncell cycle\nprocess"
+cat.sub[cat.sub$term == "mitotic cell cycle",]$term<-"mitotic\ncell cycle"
+cat.sub[cat.sub$term == "ncRNA metabolic process",]$term<-"ncRNA metabolic\nprocess"
+cat.sub[cat.sub$term == "ncRNA processing",]$term<-"ncRNA\nprocessing"
+cat.sub[cat.sub$term == "cis-trans isomerase activity",]$term<-"cis-trans\nisomerase activity"
+cat.sub[cat.sub$term == "extracellular region part",]$term<-"extracellular region\npart"
+cat.sub[cat.sub$term == "cell-substrate junction",]$term<-"cell-substrate\njunction"
+
+funct_annot_plot <- 
+  ggplot() +
+  geom_hline(yintercept =0, linetype =2, alpha = 0.5)+
+  geom_jitter(data=go_data, mapping=aes(y=y, x=num, color = fill), size =2, height = 0.5, width =5, alpha =1/3)+ #smake the small bubble of the genes
+  scale_color_manual("logFC", values = c("#3333ff", "#ff3333"), guide="none") +
+  new_scale_color() + # use the ggnewscale package to adjust the colours for the small and the big bubbles
+  geom_point(data = cat.sub, mapping = aes(y=zscore, x=num, size = count, color = category), alpha =0.7) + # big bubbles describing the annotation terms
+  scale_size(range = c(5,40), guide = 'none') +
+  scale_color_manual("Category", values = c("#0086b3","#00ace6", "#1ac6ff", "#e6b800", "#ffb380"), guide = "none") +
+  geom_text_repel(data=cat.sub, aes(x=num, y=text_y, label = term), fontface=2, size = 3.5) + # the ggrepel packages helps with the annotation
+  scale_x_continuous("", limits = c(-20,110))+
+  scale_y_continuous(limits =c (-9,12))+
+  guides(shape = guide_legend(override.aes = list(size = 2)))+
+  ylab("Z-Score") +
+  facet_grid(category~., space="free", labeller = labeller(category = rename.cat))+
+  theme_minimal() +
+  theme(
+    axis.title.x=element_blank(),
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text = element_text(size = 9),
+    title =  element_text(size = 10),
+    axis.title = element_text(size = 12),
+    axis.text.y =  element_text(size = 11),
+    strip.text = element_text(size = 11),
+    legend.text = element_text(size = 10),
+    legend.title = element_text(size = 10),
+    axis.title.y = element_text(margin = margin(t = 0, r = 5, b = 0, l = 0)),
+    axis.ticks.length=unit(.125, "cm"),
+    rect = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "transparent",color = NA),
+    panel.grid.minor = element_blank(), 
+    panel.grid.major = element_blank(),
+    panel.border = element_rect(size=1),
+    axis.ticks = element_line(colour = "black", size = 0.75),
+    strip.background =element_rect(fill="transparent", color = 'transparent'),
+  )
+
+print(funct_annot_plot)
+
+```
+
+Pretty functional annotation plot :)
+
+The small blue and red dots represent genes, coloured according to their logFC.
+The big bubbles represent annotation terms with the size depending on the counts.
+
+
+## Functional Annotation clustering
+
+In addition to functional annotation of gene list, DAVID provides a tool to cluster these annotation terms.
+
+```{r cluster}
+# create an annotation cluster object
+annot_cluster <- getClusterReport(david,
+                                  overlap=4L,
+                                  initialSeed=4L,
+                                  finalSeed=4L,
+                                  linkage=0.5,
+                                  kappa=35L)
+
+# use getClusterReportFile to save the results to a file
+
+head(summary(annot_cluster))
+```
+
+Pick out the clusters which are of interest.
+Here, we use the top 5 according to the enrichment.
+
+
+```{r, coi}
+
+cluster_interest<-head(summary(annot_cluster))%>%top_n(5, Enrichment)
+
+# nake a data frane to use in the plot
+cl_df_complete<-NULL
+# loop through cluster of interest and combine the information
+for (coi in cluster_interest$Cluster){
+  l<-(annot_cluster@cluster[[coi]]$Members)
+  cl.df<-t(as.data.frame(t(as.data.frame(l))))
+  cl.df<-as.data.frame(cl.df)
+  cl.df$clusterno<-coi
+  cl.df$EnrichScore<-annot_cluster@cluster[[coi]]$EnrichmentScore
+  cl_df_complete<-rbind(cl_df_complete, cl.df)
+}
+
+# some cleaning up for the plot
+cl_df_complete$Count<-as.numeric(as.character(cl_df_complete$Count))
+cl_df_complete$clusterno<-ordered(cl_df_complete$clusterno)
+cl_df_complete$alpha<-ave(cl_df_complete$Count, cl_df_complete$clusterno, FUN=seq_along)
+cl_df_complete$clusterinfo<-paste("Cluster:", cl_df_complete$clusterno, " Enrichment Score: ", round(cl_df_complete$EnrichScore,2), sep = " ")
+cl_df_complete$TermInfo<-gsub("^.*~", "", cl_df_complete$Term)
+head(cl_df_complete, 1)
+```
+
+Create a function for the lollipop plot.
+
+```{r plotfct}
+cl_annot_plot <- function(df, cols, rename.cols) {
+  p <-   ggplot(df, aes(x = reorder(TermInfo, Count), y = Count)) +
+    geom_segment(aes(
+      xend = TermInfo,
+      y = 0,
+      yend = Count,
+      color = Category
+    ), size = 2) +
+    geom_point(size = 4, alpha = 1, aes(color = Category)) +
+    geom_text (
+      aes(label = TermInfo, y = 1),
+      hjust = 0,
+      vjust = 1,
+      stat = 'identity',
+      check_overlap = TRUE,
+      fontface = 2,
+      nudge_x = -0.15
+    ) +
+    coord_flip() +
+    scale_color_manual(values = cols,
+                       labels = rename.cols,
+                       drop = F) +
+    ylab("Count") +
+    facet_grid(clusterinfo ~ .,
+               scales = "free_y",
+               space = "free",
+               switch = 'y') +
+    theme_bw() +
+    theme(
+      axis.text.y = element_blank(),
+      legend.position = "none",
+      axis.title.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text = element_text(size = 10),
+      title =  element_text(size = 10),
+      axis.title = element_text(size = 12),
+      strip.text = element_text(size = 11, face = 2),
+      legend.text = element_text(size = 10),
+      legend.title = element_text(size = 10),
+      axis.ticks.length = unit(.125, "cm"),
+      rect = element_rect(fill = "transparent"),
+      plot.background = element_rect(fill = "transparent", color = NA),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.border = element_rect(size = 1),
+      axis.ticks = element_line(colour = "black", size = 0.75),
+      strip.background = element_rect(fill = "transparent", color = 'transparent'),
+      legend.key = element_rect(fill = 'transparent', color = NA)
+    )
+  return(p)
+}
+```
+
+
+```{r, fig.width=14, fig.height=12}
+# rename the categories in the plot to make them lok pretty
+rename.cat <-  c("GO Cellular Component", "GO Biological Process", "GO Molecular Function", "UniProt Keyword", 'KEGG Pathway')
+names(rename.cat) <- c("GOTERM_CC_FAT", "GOTERM_BP_FAT", "GOTERM_MF_FAT", "UP_KEYWORDS", "KEGG_Pathway")
+
+# pretty colours
+my_cols <- c("#0086b3","#00ace6", "#1ac6ff", "#e6b800", "#ffb380", 'red')
+names(my_cols)<- names(rename.cat)
+#names(my_cols)<-c("GO Cellular Component", "GO Biological Process", "GO Molecular Function", "UniProt Keyword", "KEGG Pathway")
+
+# manually arrange the subplots of the clusters
+t <- arrangeGrob(
+  cl_annot_plot(cl_df_complete[cl_df_complete$clusterno%in%c(1,3),], cols = my_cols, rename.cols = rename.cat),
+  cl_annot_plot(cl_df_complete[cl_df_complete$clusterno%in%c(2),], cols = my_cols, rename.cols = rename.cat) + 
+    guides(color=guide_legend(ncol=3, title = '')) + theme(legend.position = 'bottom'),
+  cl_annot_plot(cl_df_complete[cl_df_complete$clusterno%in%c(4,5),], cols = my_cols, rename.cols = rename.cat),
+  ncol=3)
+
+grid.draw(t)
+
+# use ggsave() to save the graph
+```
+
+Pretty Plot :)
+
+# References
+
+```{r refs}
+for (i in packages){
+  print(citation(i))
+}
+```
+
+
+
+

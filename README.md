@@ -15,6 +15,10 @@ Find us on Facebook https://facebook.com/RLadiesBNE
 
 Here you will find presentations of our meetups [ordered by year and month](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2020).
 
+### Volunteers
+
+[Find out who helps organising our events](https://github.com/rladies/meetup-presentations_brisbane/blob/master/organisersKit/volunteers.md).
+
 ## Community mission
 
 As a diversity initiative, the mission of R-Ladies is to achieve proportionate representation by encouraging, inspiring, and empowering people of genders currently underrepresented in the R community. R-Ladies’ primary focus, therefore, is on supporting minority gender R enthusiasts to achieve their programming potential, by building a collaborative global network of R leaders, mentors, learners, and developers to facilitate individual and collective progress worldwide.
