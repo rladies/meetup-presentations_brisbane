@@ -13,5 +13,7 @@ All new and old members welcome, we will have time to chat after the presentatio
 
 ## Materials
 
+See [workflows presentation GitHub link](https://github.com/seacatkim/meetup-presentations_brisbane/blob/master/2020/10/Workflows_Collaboration_inR.pptx)
+
 ## Extra resources
 
