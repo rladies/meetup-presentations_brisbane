@@ -1,1 +1,1 @@
-# Tips and Ticks in R and RStudio
+# Tips and Tricks in R and RStudio
