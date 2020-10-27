@@ -25,4 +25,4 @@ If you are interested in helping out please reach out to us, and we will onboard
 - Sandra Brosba, helped designing the Banner in May 2019
 
 
-*last updated 20 August 2020*
+*last updated 27 October 2020*
