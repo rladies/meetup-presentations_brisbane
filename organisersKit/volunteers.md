@@ -12,6 +12,8 @@ If you are interested in helping out please reach out to us, and we will onboard
 - Catherin Kim, started helping co-organise events in August 2020
 - Valentine Murigneux, started helping co-organise events in December 2019
 - Paula Andrea Martinez [@orchid00](twitter.com/orchid00). Started co-organising events in January 2019.
+- Rhetta Chappell started co-organising in October 2020
+- Ati Taherian restarted co-organising in October 2020
 
 ## Past Co-organises
 
@@ -19,7 +21,7 @@ If you are interested in helping out please reach out to us, and we will onboard
 - Ati Taherian, helped organised events between December 2018 to February 2020
 
 ## Other helpers
-- Rhetta Chapel started helping with tweets from the @RLadiesBrisbane account from January 2020 to April 2020
+- Rhetta Chappell started helping with tweets from the @RLadiesBrisbane account from January 2020 to April 2020
 - Sandra Brosba, helped designing the Banner in May 2019
 
 
