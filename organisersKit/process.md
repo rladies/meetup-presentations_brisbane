@@ -13,6 +13,7 @@ Here is a checklist of tasks needed for organising events
 - [ ] Create event poster using the template
 - [ ] Tweet about the event using the event poster at least 2 weeks in advance
 - [ ] Tweet about the event on the day of the event
-- [ ] Advertise event through mailing lists 
+- [ ] Advertise event through mailing lists
+- [ ] Contact signed-up attendees for the event through meetup the day before to remind them
 - [ ] Send an email or contact speakers via slack the day of the event to make sure everything is in order
 - [ ] Before (preferably) or after the event create a folder on this repository under the correct year and month and add details of the event and code or presentation provided by the speakers
