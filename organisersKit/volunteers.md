@@ -10,9 +10,9 @@ If you are interested in helping out please reach out to us, and we will onboard
 
 ## Co-organisers
 
-- Valentine Murigneux, started helping co-organise events in December 2018
-- Paula Andrea Martinez [@orchid00](twitter.com/orchid00). Started co-organising events in January 2019.
-- Catherin Kim, started helping co-organise events in August 2020
+- Valentine Murigneux, started co-organising in December 2018
+- Paula Andrea Martinez, started co-organising in January 2019.
+- Catherin Kim, started co-organising in August 2020
 - Rhetta Chappell started co-organising in October 2020
 - Ati Taherian restarted co-organising in October 2020
 - Caitie Kuempel started co-organising in November 2020
