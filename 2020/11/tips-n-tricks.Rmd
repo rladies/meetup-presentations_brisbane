@@ -1,0 +1,389 @@
+---
+title: "Tips n Tricks"
+author: "Paula Andrea Martinez"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+`r newthought('For beginners')`
+
+# *Manage your project structure
+
+## Tip - Create an RStudio Project
+`File > New Project`
+
+## Tip - Create a folder structure for your project
+You can click on `New Folder` and create your structure
+or you can do it from a script
+```{r eval=FALSE}
+dir.create("data")
+```
+
+## Trick - Create a package that does that for you
+tidyproject ^[Find it on GitHub orchid00/tidyproject]
+
+```{r eval=FALSE}
+remotes::install_github("orchid00/tidyproject")
+library(tidyproject)
+# This function created my folder structure
+# with data, scripts, plots, rmarkdown
+#createStr()
+```
+
+## Tip - Use here from the here package
+It will save you headaches about paths you don't need to worry about
+
+```{r eval=FALSE}
+install.packages("here")
+here("data","myfile.csv")
+```
+
+## Trick - Open Recent
+Please don’t spend time navigating through your folder structure to find a 
+recent project or file.
+
+*File > Recent Files*
+*File > Recent Projects*
+
+Also, *top right corner arrow down*
+
+## Trick - Find in Files
+*Shortcut* `Cmd / Ctrl + Shift + F`
+
+## Tip - Add comments
+Use a # at the beginning of the line
+or at the end of the line
+
+## Trick - Add comments
+*Shortcut* `Cmd / Ctrl + Shift + C`
+
+```{r}
+# comment
+```
+
+
+## Tip - Add sections to your code
+At the end of a section add
+4 dashes - or 4 hashes #
+```{r}
+# this is a section ----
+```
+
+## Tip - Get data in
+You can download files from the web
+directly into your project
+```{r eval=FALSE}
+?download.file
+```
+
+# *Cheatsheets
+
+## Tip - used them when you are learning or to refresh
+Top menu *Help* > *Cheatsheets*
+
+# *Markdown wise
+Markdown is great!
+You can do websites, word docs, PDFs, books, etc.
+
+## Trick - Add a code chunk
+*Shortcut* `Cmd / Ctrl + Alt + I`
+
+## Tip - Check code chunk options
+I never remember so here is a cheat sheet^[[https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf)]
+
+## Tip - Rmarkdown Theme Gallery
+Use what is available ^[[https://www.datadreaming.org/post/r-markdown-theme-gallery/](https://www.datadreaming.org/post/r-markdown-theme-gallery/)] and
+make sure you have pandoc installed, otherwise you might see some errors.
+
+For example, if you are on Ubuntu focal ^[here is what I needed [https://packages.ubuntu.com/focal/pandoc](https://packages.ubuntu.com/focal/pandoc)].
+
+This page and PDF are using the Tufte handout style ^[Tufte is a style that 
+Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. See Github repositories [tufte-latex](https://github.com/tufte-latex/tufte-latex), [tufte-css](https://github.com/edwardtufte/tufte-css) and its implementation
+into the [**tufte** package](https://github.com/rstudio/tufte)].
+
+For HTML output, use `tufte_html` in the YAML metadata at the beginning of 
+an R Markdown document (see an example below).
+
+```yaml
+---
+title: "An Example Using the Tufte Style"
+author: "Paula Andrea Martinez"
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---
+```
+
+`r newthought('Intermediate')`
+
+# Shortcuts all
+
+Alt+Shift+K
+
+# *Manage your files
+
+## Tip - check your files and folders
+Lists your files and folders
+```{r}
+library(here)
+dir(here("")) 
+```
+
+## Trick - get more information about files and folders
+```{r}
+fs::dir_info(here(""))
+```
+# *Writing code
+
+## Tip - Naming things
+Please watch Naming things from Jenny Bryan ^[[https://speakerdeck.com/jennybc/how-to-name-files](https://speakerdeck.com/jennybc/how-to-name-files)]
+
+## Tip - replacing NAs
+```{r}
+library(tidyverse)
+```
+
+```{r}
+msleep <- ggplot2::msleep
+glimpse(msleep)
+```
+```{r}
+msleep_nona <- msleep %>% 
+  mutate(conservation = replace_na(conservation, "unknown"))
+
+glimpse(msleep_nona)
+```
+
+## Tip - Selecting columns based on regex
+```{r}
+msleep %>%
+  select(matches("wt")) %>%
+  glimpse
+```
+## Tip - selecting by discrete number of categories
+```{r}
+msleep %>%
+  select_if(~n_distinct(.) < 6)
+```
+
+```{r}
+unique(msleep$vore)
+```
+## My favourite function count
+```{r}
+msleep %>% 
+  count(vore)
+
+```
+## Tip - add count
+```{r}
+
+msleep %>%
+  select(name:vore) %>%
+  add_count(vore)
+```
+
+## Tip - get rid of extra characters in column names
+
+```{r}
+msleep_nona <- msleep_nona %>%
+  select(1:4)
+
+colnames(msleep_nona) <- c("Q1 Name", "Q2 sleeP total 1", "Q3 voore", "Q4 order")
+colnames(msleep_nona)
+
+msleep_nona %>%
+  select_all(~str_replace(., "Q[0-9]+ ", "")) %>% 
+  select_all(~str_replace_all(., " ", "_"))  
+```
+
+## Trick use Janitor to clean names
+```{r}
+library(janitor)
+
+msleep_nona %>% 
+  janitor::clean_names()
+
+```
+
+## Tip - Random selection of rows
+
+
+```{r}
+set.seed(123)
+
+msleep %>%
+  sample_frac(0.1)
+```
+
+## Trick - separate one column into two
+```{r}
+df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
+(df)
+```
+```{r}
+df %>% separate(x, c("key","value"), ":")
+```
+## Trick near()
+```{r}
+msleep %>% 
+  select(name, sleep_total)
+```
+```{r}
+sd(msleep$sleep_total)
+```
+
+
+```{r}
+msleep %>% 
+  select(name, sleep_total) %>% 
+  filter(near(sleep_total, 17, tol = sd(sleep_total)))
+```
+
+## Tip - Use %in% instead of or
+```{r}
+y <- c("a", "a", "z", "y","b", "c")
+```
+
+
+```{r}
+y == "a" | y == "b" | y == "c"  
+```
+is the same as
+```{r}
+y %in% c("a", "b", "c")
+```
+
+
+
+```{r}
+msleep %>% 
+  select(order, name, sleep_total) %>% 
+  filter(order %in% c("Didelphimorphia", "Diprotodontia"))
+```
+
+## Trick - Use %in% instead of or
+
+```{r}
+msleep %>% 
+  select(order, name, sleep_total) %>% 
+  filter(order %in% str_subset(order, "Di"))
+
+# add negative for second example
+```
+## Tip - vars all_vars
+```{r}
+msleep %>%  
+  select(name, sleep_total:sleep_cycle) %>% 
+  filter_at(vars(sleep_total, sleep_rem), all_vars(. > 5))
+```
+
+## Tip - beautiful plots
+[https://twitter.com/wearerladies/status/1280859374668283906](https://twitter.com/wearerladies/status/1280859374668283906)
+
+`r newthought('Advanced')`
+
+# *Writing code
+
+## Tip - Avoid dots in names
+Believe me, or watch Jim Hester video ^[[https://www.youtube.com/watch?v=IoWDQ6rx6yA](https://www.youtube.com/watch?v=IoWDQ6rx6yA)]
+
+# *Working with BIG files
+Use when data is larger than 1 Giga
+
+## Tip - Data table package
+```{r eval=FALSE}
+install.packages("data.table")
+```
+
+use the `fread()` function to read in big files
+
+## Tip - Use fread from data.table and filter with grep
+This is amazing!
+
+```{r eval=FALSE}
+data <- data.table::fread("grep -w File ~/data/someHUGEfile.csv")
+```
+
+pre-filter with the grep command ;)
+
+## Trick - Use the pipe from base and filter
+
+```{r eval=FALSE, echo=FALSE}
+normal_data <- read.csv(pipe("grep -w File ~/data/somefile.csv"))
+```
+
+
+## Trick - Compress files on the fly!
+```{r eval=FALSE}
+write.csv(data, gzfile("data/bigdata.gz"))
+file <- read.csv(gzfile("data/bigdata.gz"))
+```
+
+## Tip - Read or write big outputs
+Functions in order of speed
+```{r eval=FALSE}
+read.csv()
+readr::read_csv()
+vroom::vroom_read()
+```
+
+## Tip - Read or Write to compressed formats
+Compress directly into *gz, 7z, zst*. 
+We know that `write.csv` from base does a pretty good job for most smallish files.
+Try `readr::write_csv` and you will see the a 50% improvement. 
+But, what surpasses all is `vroom::vroom_write` ~ 15 X faster than `write.csv`.
+
+## Tip - benchmark
+When things are working the next step is optimise!
+You can check yourself with the function `bench_time` from the {bench} package.
+
+# *Workflows and Reproducibility
+
+## Tip - Use workflowr
+Demonstration of a {workflowr} website ^[[https://www.youtube.com/watch?v=O1wv94sZfvE](https://www.youtube.com/watch?v=O1wv94sZfvE)]
+Milestones, versions, all in one place.
+
+
+## Tip - learn drake
+If you are building analysis code that is likely to grow use drake
+The {drake} package records file inter dependencies in your analysis. When files
+are changed, {drake} only re-runs the parts that need to be re-run. This saves 
+time and reduces errors ^[Learn from Matt Dray 
+[https://www.rostrum.blog/2019/07/23/can-drake-rap/](https://www.rostrum.blog/2019/07/23/can-drake-rap/)
+and from Amanda Dobbyn Rladies Chicago
+[https://aedobbyn.github.io/nyc-fires/index.html#1]([https://aedobbyn.github.io/nyc-fires/index.html#1)].
+
+`r newthought('Keep learning')`
+
+Resources used to provide you with this collection of tips and tricks
+  
+* Suzan's tidyverse tricks [https://suzan.rbind.io/categories/tutorial/](https://suzan.rbind.io/categories/tutorial/)
+* Sean Lopp's posts [https://rviews.rstudio.com/categories/tips-and-tricks/](https://rviews.rstudio.com/categories/tips-and-tricks/)
+* Sean Lopp's video NYC RStudio Conference [https://www.youtube.com/watch?v=kuSQgswZdr8](https://www.youtube.com/watch?v=kuSQgswZdr8)
+* Jim Hester's video Pipe Connections [https://www.youtube.com/watch?v=RYhwZW6ofbI](https://www.youtube.com/watch?v=RYhwZW6ofbI)
+* tidyr reference docs [https://tidyr.tidyverse.org/reference](https://tidyr.tidyverse.org/reference)
+
+*Author: Paula Andrea Martinez*
+`r Sys.Date()`
+
+```{r bib, include=FALSE}
+# create a bib file for the R packages used in this document
+knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
+```
