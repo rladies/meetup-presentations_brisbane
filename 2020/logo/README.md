@@ -14,7 +14,9 @@ The winner will need to grant full permission for RLadies Brisbane to use and pr
 Please subject the e-mail entry as: “Rladies Brisbane logo competition”
 
 **Useful resources:**
-Hex sticker templates: [Powerpoint](http://google.com), [Canva](https://www.canva.com/), or [hexSticker R package](https://github.com/GuangchuangYu/hexSticker)
+
+Hex sticker templates: [Powerpoint](https://emitanaka.org/post/hexsticker/hexsticker.pptx), [Canva](https://www.canva.com/), or [hexSticker R package](https://github.com/GuangchuangYu/hexSticker)
+
 Blog posts: 
 - https://zhuhao.org/post/tips-on-designing-a-hex-sticker-for-rstats-packages/ 
 - https://emitanaka.org/post/hexsticker/ 
