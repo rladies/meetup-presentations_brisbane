@@ -9,7 +9,7 @@
 
 [Twitter @WomenEconAU](https://twitter.com/WomenEconAU)
 
-Welcome to our May Event!
+Welcome to our April Event!
 
 [RSVP via Meetup](https://www.meetup.com/en-AU/rladies-brisbane/events/) First in person event of 2021!
 Co-organised with WEN QLD, thanks to Dr. Radhika Lahiri, Senior Lecturer at School of Economics and Finance QUT Business School, Queensland University of Technology.
