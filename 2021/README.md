@@ -20,6 +20,14 @@ If you would like to speak at one of our events, please get in touch via the lin
 
 * [Huong Ly Tong: Step count data ](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/03/README.md)
 
+### April 2021
+
+* [Networking event Women in Economics + RLadies Brisbane](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/04/README.md)
+
+### May 2021
+
+* [Julie Vercelloni: Modelling Workflows and the R-INLA package](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/05/README.md)
+
 
 
 
