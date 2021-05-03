@@ -18,7 +18,7 @@ Thanks to Women in Economics QLD for providing nibles.
 All new and old members welcome!
 
 ## Materials
-[Presentation](./Tong-Rladies-2021.pdf)
+[Presentation](./Rladies_andWEN_April2021_introslides.pptx)
 
 ## Extra resources
 
