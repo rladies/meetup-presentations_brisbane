@@ -13,7 +13,7 @@ Welcome to our May Event!
 All new and old members welcome!
 
 ## Materials
-[Download presentation]()
+[Download presentation](./R_ladies_JVercelloni.pdf)
 
 ## Extra resources
 
