@@ -2,7 +2,7 @@
 
 ## June 16th, 2021 5 pm AEST
 
-### Speakers
+### Speaker
 
 * Malindrie Dharmaratne, UQ
 
