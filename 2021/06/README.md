@@ -8,7 +8,7 @@
 
 Welcome to our June Event!
 
-[RSVP via Meetup](https://www.meetup.com/rladies-brisbane/events/278673169/) This is a hybrid event with a Zoom link.
+[RSVP via Meetup](https://www.meetup.com/rladies-brisbane/events/278673169/). This is a hybrid event with a Zoom link.
 
 All welcome.
 
