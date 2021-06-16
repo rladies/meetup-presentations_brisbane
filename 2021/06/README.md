@@ -15,3 +15,5 @@ All welcome.
 ### Materials
 
 Presentation to be uploaded.
+The repo for this is on Malindrie's Github 
+https://github.com/Malindrie/R-ladies_Brisbane
