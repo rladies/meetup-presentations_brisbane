@@ -15,6 +15,4 @@ All new and old members welcome!
 ## Materials
 [Download presentation](./R_ladies_JVercelloni.pdf)
 
-## Extra resources
-
-
+[Youtube recording](https://www.youtube.com/watch?v=L_8e2xuyttI)
