@@ -14,4 +14,4 @@ All welcome.
 
 ### Materials
 
-Presentation to be uploaded.
+[Download presentation](https://github.com/seaCatKim/meetup-presentations_brisbane/blob/master/2021/06/Using%20Docker%20with%20R.pdf)
