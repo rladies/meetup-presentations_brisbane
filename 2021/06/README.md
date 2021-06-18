@@ -14,4 +14,8 @@ All welcome.
 
 ### Materials
 
+
 [Download presentation](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/06/Using%20Docker%20with%20R.pdf)
+
+The repo with examples from the presentation can be found on [Malindrie's Github](https://github.com/Malindrie/R-ladies_Brisbane)
+
