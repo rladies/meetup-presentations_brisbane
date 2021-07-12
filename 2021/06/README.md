@@ -20,7 +20,7 @@ All welcome.
 The repo with examples from the presentation can be found on [Malindrie's Github](https://github.com/Malindrie/R-ladies_Brisbane)
 
 ### Video
-what the recording of the presentation
+Watch the recording of the presentation
 
 [Video](https://www.youtube.com/watch?v=JmfSml66vkQ)
 
