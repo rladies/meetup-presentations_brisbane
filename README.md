@@ -11,6 +11,8 @@ Join the conversation on Slack please use [this invitation](https://join.slack.c
 
 Find us on Facebook https://facebook.com/RLadiesBNE
 
+Watch videos on the YouTube [R-Ladies Brisbane channel](https://www.youtube.com/channel/UC9oOCJe8kwkZ_6IgTmet9oQ)
+
 ## Overview
 
 Here you will find presentations of our meetups ordered by year and month, [see 2021 events](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021).
