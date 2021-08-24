@@ -20,6 +20,6 @@ All welcome, topic is intermediate to advanced.
 ### Video TBA
 
 ### Resources mentioned during the talk
-- to learn how to use git with R see [https://happygitwithr.com/](https://happygitwithr.com/0
+- to learn how to use git with R see [https://happygitwithr.com/](https://happygitwithr.com/)
 - to learn about HPC see this Carpentries lesson [https://carpentries-incubator.github.io/hpc-intro/](https://carpentries-incubator.github.io/hpc-intro/)
 
