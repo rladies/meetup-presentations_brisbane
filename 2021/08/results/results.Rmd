@@ -1,0 +1,40 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(viridis)
+
+ngrid=100
+nsamp = 1000
+seed = 3854
+
+load(file=paste0('./ngrid',ngrid,'nsamp',nsamp,'seed',seed,'.Rdata'))
+```
+
+
+```{r}
+image(x1, x2, matrix(depth, ngrid, ngrid))
+contour(x1, x2, matrix(depth, ngrid, ngrid), add = TRUE)
+```
+
+```{r}
+image(x1, x2, matrix(depth, ngrid, ngrid)) + points(sample.x1.x2[,1], sample.x1.x2[,2])
+```
+
+
+```{r}
+image(x1, x2, matrix(interpolated.depth, ngrid, ngrid)) 
+```
+
+
+```{r}
+# in ggplot
+df <- as.data.frame(data)
+df.sample <- as.data.frame(data[sample.idx,])
+
+ggplot(df, aes(Var1, Var2, fill= depth)) + scale_fill_viridis()+
+  geom_tile() + geom_point(df.sample, mapping=aes(Var1, Var2))
+```
