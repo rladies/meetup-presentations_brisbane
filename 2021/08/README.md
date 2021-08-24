@@ -6,7 +6,7 @@
 
 * Katie Buchhorn, QUT
 
-Welcome to our June Event!
+Welcome to our August event!
 
 [RSVP via Meetup](https://www.meetup.com/rladies-brisbane/events/280047293/). This is a hybrid event with a Zoom link.
 
