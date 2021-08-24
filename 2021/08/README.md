@@ -14,8 +14,12 @@ All welcome, topic is intermediate to advanced.
 
 ### Materials
 
-[Slides TBA]()
-[Check the RProject folder to see all the scripts and follow along](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/08/RProject)
+* [Slides TBA]()
+* [Check the RProject folder to see all the scripts and follow along](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/08/RProject)
 
 ### Video TBA
+
+### Resources mentioned during the talk
+- to learn how to use git with R see [https://happygitwithr.com/](https://happygitwithr.com/0
+- to learn about HPC see this Carpentries lesson [https://carpentries-incubator.github.io/hpc-intro/](https://carpentries-incubator.github.io/hpc-intro/)
 
