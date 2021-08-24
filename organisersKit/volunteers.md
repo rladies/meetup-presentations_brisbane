@@ -12,7 +12,7 @@ If you are interested in helping out please reach out to us, and we will onboard
 
 - Valentine Murigneux, started co-organising in December 2018 and manages the facebook account
 - Paula Andrea Martinez, started co-organising in January 2019 and manages the brisbane@rladies.org email, the twitter account, meetup account and the GitHub
-- Catherin Kim started co-organising in August 2020 and manages the meetup and gmail account, youtube and the brisbane@rladies.org email
+- Catherin Kim started co-organising in August 2020 and manages the meetup and gmail accountconnected to the youtube channel
 - Rhetta Chappell started co-organising in October 2020 tweets from Twitter from March 2021
 - Ati Taherian restarted co-organising in October 2020 manages the meetup account
 
