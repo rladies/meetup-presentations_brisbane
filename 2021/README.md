@@ -28,6 +28,18 @@ If you would like to speak at one of our events, please get in touch via the lin
 
 * [Julie Vercelloni: Modelling Workflows and the R-INLA package](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/05/README.md)
 
+### June 2021
+
+* [Malindrie Dharmaratne: Introduction to using Docker for reproducibility in R](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/06/README.md)
+
+### July 2021
+
+* [Paula Andrea Martinez: Tidy Tuesday](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/07/README.md)
+
+### August 2021
+
+* [Katie Buchhorn: Working smarter, faster and more securely in R](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/08/README.md)
+
 
 
 
