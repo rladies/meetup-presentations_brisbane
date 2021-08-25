@@ -1,0 +1,7 @@
+(putty to the hpc)
+qsub -I -l ncpus=1
+cd Rlaldies
+bash -l
+module load r/4.0.3-foss-2020b
+R
+>>> now you are in the R environment, in an interactive terminal on the hpc and you can run your code
