@@ -14,7 +14,7 @@ All welcome, topic is intermediate to advanced.
 
 ### Materials
 
-* [Slides TBA]()
+* [You can download the slides from this folder](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/08/2021-08-24__KatieBuchhorn.pptx)
 * [Check the RProject folder to see all the scripts and follow along](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/08/RProject)
 
 ### Video TBA
