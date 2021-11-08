@@ -8,11 +8,11 @@
 
 Welcome to our November event!
 
-[RSVP via Meetup](). 
+[RSVP via Meetup](https://www.meetup.com/en-AU/rladies-brisbane/events/281938190/). 
 
 All welcome.
 
-### Youtube Video of the presentation - check back!
+### Check back for presentation slides and the video!
 
 
 
