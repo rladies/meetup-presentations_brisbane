@@ -1,4 +1,4 @@
-# R-Laides Urmia, Iran: Cluster analysis, interplation techniquews and more using R 
+# R-Ladies Urmia, Iran: Cluster analysis, interpolation techniques and more using R 
 
 ## October 5th, 2021 5 pm AEST
 
