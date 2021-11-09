@@ -40,6 +40,16 @@ If you would like to speak at one of our events, please get in touch via the lin
 
 * [Katie Buchhorn: Working smarter, faster and more securely in R](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/08/README.md)
 
+### No september event
+
+### October 2021
+
+* [Nasrin Fathollahzadeh, Maryam Alizadeh, Laya Zeinali: Cluster analysis, interpolation techniques and more using R](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/10/README.md)
+
+### October 2021
+
+* [Gayathri Thillaiyampalam: Writing your manuscript in R markdown](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/11/README.md)
+
 
 
 
