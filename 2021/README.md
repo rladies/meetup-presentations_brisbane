@@ -46,9 +46,13 @@ If you would like to speak at one of our events, please get in touch via the lin
 
 * [Nasrin Fathollahzadeh, Maryam Alizadeh, Laya Zeinali: Cluster analysis, interpolation techniques and more using R](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/10/README.md)
 
-### October 2021
+### November 2021
 
 * [Gayathri Thillaiyampalam: Writing your manuscript in R markdown](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021/11/README.md)
+
+### December 2021
+
+* Annual end of the year Networking event!
 
 
 
