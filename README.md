@@ -17,7 +17,7 @@ Watch videos on the YouTube [R-Ladies Brisbane channel](https://www.youtube.com/
 
 ## Overview
 
-Here you will find presentations of our meetups ordered by year and month, [see 2021 events](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2021).
+Here you will find presentations of our meetups ordered by year and month, [see 2022 events](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022).
 
 ### Volunteers
 
