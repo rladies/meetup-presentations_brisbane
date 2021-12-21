@@ -2,7 +2,7 @@
 
 ## January 25th, 2022 6pm AEST
 
-### Speakers
+### Speaker
 
 * Simisani Ndaba
 
