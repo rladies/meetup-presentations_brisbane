@@ -15,4 +15,6 @@ All welcome.
 ### Check back for presentation slides and the video!
 
 
+### Materials
 
+* [You can download the slides from this folder](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2021/11/Rladies_25112021_GayathriThillaiyampalam.pdf)
