@@ -1,4 +1,4 @@
-# R-Ladies Gaborone, Botswana:R packages for data cleaning
+# R-Ladies Gaborone, Botswana: R packages for data cleaning
 
 ## January 25th, 2022 6pm AEST
 
