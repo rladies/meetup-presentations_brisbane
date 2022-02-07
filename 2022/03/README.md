@@ -1,4 +1,4 @@
-# R-Ladies Gaborone, Botswana: R packages for data cleaning
+# Using shiny to teach real world concepts like virus spread
 
 ## March 16th, 2022 5pm AEST
 
