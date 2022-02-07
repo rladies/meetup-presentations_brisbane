@@ -13,7 +13,7 @@ Welcome to our March event!
 All welcome.
 
 [Slides](TBD)
-[Code via the GitHub rladies Gaborone](https://github.com/katerobsau/coronaSweeper)
+[Code via Kate's Github](https://github.com/katerobsau/coronaSweeper)
 
 ### Useful URLs Shared during the presentation
 TBD
