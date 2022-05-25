@@ -14,7 +14,7 @@ All welcome.
 
 Slides (TBD)
 
-Code(https://github.com/cabuelow/intro-rshiny-mapping)
+[Code](https://github.com/cabuelow/intro-rshiny-mapping)
 
 ### Useful URLs Shared during the presentation
 TBD
