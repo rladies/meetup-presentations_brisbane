@@ -12,7 +12,8 @@ Welcome to our May event!
 
 All welcome.
 
-[Slides] (TBD)
+Slides (TBD)
+
 Code(https://github.com/cabuelow/intro-rshiny-mapping)
 
 ### Useful URLs Shared during the presentation
