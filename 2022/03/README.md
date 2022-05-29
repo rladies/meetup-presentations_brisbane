@@ -2,6 +2,8 @@
 
 ## March 16th, 2022 5pm AEST
 
+This event was canceled due to the Brisbane floods in March.
+
 ### Speaker
 
 * Kate Saunders
