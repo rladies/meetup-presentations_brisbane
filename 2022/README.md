@@ -1,5 +1,14 @@
 # RLadies Brisbane events 2022
 
+### January 2022
+* [Simisani Ndaba: R packages for data cleaning](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/01/README.md)
+
+### March 2022
+* [Kate Saunders: Using shiny to teach real world concepts like virus spread](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/03) - cancelled due to Brisbane floods
+
+### May 2022
+* [Christina Buelow: Mapping interactively with RSHiny](https://github.com/cabuelow/intro-rshiny-mapping)
+
 ## Useful links
 
 Meetup: https://www.meetup.com/rladies-brisbane/events			
@@ -12,12 +21,4 @@ email: brisbane [at] rladies [dot] org
 
 Twitter: UQ_RUG: https://twitter.com/UQ_RUG RLadies Brisbane is supporting UQ R Users Group to run a monthly virtual talk about R stats on the third Monday of the month.
 
-## Events of 2022
-
-If you would like to speak at one of our events, please get in touch via the links above.
-
-### January 2022
-
-* [Simisani Ndaba: R packages for data cleaning](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/01/README.md)
-* [Kate Saunders: Using shiny to teach real world concepts like virus spread](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/03) - cancelled due to Brisbane floods
-* [Christina Buelow: Mapping interactively with RSHiny](https://github.com/cabuelow/intro-rshiny-mapping)
+**If you would like to speak at one of our events, please get in touch via the links above.**
