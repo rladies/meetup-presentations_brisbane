@@ -7,7 +7,7 @@
 * [Kate Saunders: Using shiny to teach real world concepts like virus spread](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/03) - cancelled due to Brisbane floods
 
 ### May 2022
-* [Christina Buelow: Mapping interactively with RSHiny](https://github.com/cabuelow/intro-rshiny-mapping)
+* [Christina Buelow: Mapping interactively with RShiny](https://github.com/cabuelow/intro-rshiny-mapping)
 
 ## Useful links
 
