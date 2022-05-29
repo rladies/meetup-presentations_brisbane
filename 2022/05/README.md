@@ -4,7 +4,7 @@
 
 ### Speaker
 
-* Christina Buelow
+* [Christina Buelow](https://twitter.com/christinabuelow)
 
 Welcome to our May event!
 
