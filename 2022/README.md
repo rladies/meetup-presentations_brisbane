@@ -19,5 +19,5 @@ If you would like to speak at one of our events, please get in touch via the lin
 ### January 2022
 
 * [Simisani Ndaba: R packages for data cleaning](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/01/README.md)
-* Kate Saunders:
+* [Kate Saunders: Using shiny to teach real world concepts like virus spread](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/03) - cancelled due to Brisbane floods
 * [Christina Buelow: Mapping interactively with RSHiny](https://github.com/cabuelow/intro-rshiny-mapping)
