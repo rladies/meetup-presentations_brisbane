@@ -1,6 +1,6 @@
 # Using data science to respond to natural disasters
 
-![/June_Kate_Hackathon.jpg](RLadies Brisbane June 2022 event poster)
+![R Ladies Brisbane June event poster - Brisbane Floods Hackathon](/June_Kate_Hackathon.jpg)
 
 ## June 29th, 2022 5pm AEST
 
