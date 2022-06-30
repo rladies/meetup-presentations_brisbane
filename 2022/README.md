@@ -9,6 +9,9 @@
 ### May 2022
 * [Christina Buelow: Mapping interactively with RShiny](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/05)
 
+### June 2022
+* [Kate Saunders and the Brisbane Floods Hackathony with RShiny](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/06)
+
 ## Useful links
 
 Meetup: https://www.meetup.com/rladies-brisbane/events			
