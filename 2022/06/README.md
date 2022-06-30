@@ -7,7 +7,7 @@
 ### Speakers
 
 * [Kate Saunders](https://twitter.com/KateRobSau)
-* Groups from the Brisbane Floods Hackathon
+* Groups from the [Brisbane Floods Hackathon](https://www.eventbrite.com.au/e/rapid-response-hackathon-to-the-recent-floods-tickets-290258299387?keep_tld=1) organised by Drs Kate Saunders and Kate Helmstedt
   * Flood Extent - Charlotte Patterson
   * Past observations - Dr Ben Fitzpatrick
   * Social media scraping - Tace Stewart, Lanxi Li
