@@ -22,6 +22,4 @@ Twitter: https://twitter.com/RLadiesBrisbane
 
 email: brisbane [at] rladies [dot] org 
 
-Twitter: UQ_RUG: https://twitter.com/UQ_RUG RLadies Brisbane is supporting UQ R Users Group to run a monthly virtual talk about R stats on the third Monday of the month.
-
 **If you would like to speak at one of our events, please get in touch via the links above.**
