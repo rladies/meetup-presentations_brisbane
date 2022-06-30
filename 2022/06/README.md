@@ -1,4 +1,4 @@
-# Using data science to respond to natural disasters
+# Welcome to our June event!
 
 ![R Ladies Brisbane June event poster - Brisbane Floods Hackathon](./June_Kate_Hackathon.jpg)
 
@@ -18,13 +18,4 @@
   * [Vulnerability Index](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/VulnerabilityIndex/20220629_VulnerabilityI_RLadiesHackathon.html) - Dr Catherine Kim
   
 
-Welcome to our June event!
-
 [Meetup event](https://www.meetup.com/rladies-brisbane/events/286604612/)
-
-[Presentation slides TBD](TBD)
-
-[Repo for code and data TBD](TBD)
-
-
-
