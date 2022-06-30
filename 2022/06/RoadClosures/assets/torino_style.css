@@ -1,0 +1,122 @@
+.header-banner {
+  background-color: #00407a;
+  width: 100%;
+  height: 4%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.header-underline {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #0d53a3;
+}
+
+.footer-banner-one {
+  background-color: #06ABE8;
+  width: 100%;
+  height: 2.5%;
+  position: absolute;
+  left: 20%;
+  top: 95.5%;
+}
+
+.footer-banner-two {
+  background-color: #00407a;
+  width: 100%;
+  height: 1%;
+  position: absolute;
+  left: 0;
+  top: 98%;
+}
+
+.footer-banner-three {
+  background-color: #000000;
+  width: 100%;
+  height: 1%;
+  position: absolute;
+  left: 10%;
+  top: 99%;
+}
+
+.img-logo {
+  position: absolute;
+  left: 85%;
+  top: 5%;
+  height: 10%;
+}
+
+/* Title slide*/
+.title-slide hgroup {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  height: 80%;
+  width: 80%;
+}
+
+.title-slide hgroup h1 {
+  position: relative;
+  top: 10%;
+  text-align: center;
+  font-size: 40px;
+  color: white;
+}
+
+.title-slide hgroup h2 {
+  position: relative;
+  top: 40%;
+  left: 55%;
+  font-size: 32px;
+}
+
+.title-slide p {
+  position: relative;
+  top: 40%;
+  left: 55%;
+  font-size: 28px;
+}
+
+.title-header-1 {
+  background-color: #00407a;
+  width: 100%;
+  height: 40%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.title-header-2 {
+  background-color: #06ABE8;
+  width: 100%;
+  height: 2.6%;
+  position: absolute;
+  left: 20%;
+  top: 36.6%;
+}
+
+.title-header-3 {
+  background-color: #094183;
+  width: 100%;
+  height: 1.8%;
+  position: absolute;
+  left: 10%;
+  top: 38.2%;
+}
+
+.title-header-4 {
+  background-color: #06ABE8;
+  width: 100%;
+  height: 1%;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
+
+.title-logo {
+  position: absolute;
+  left: 7.5%;
+  top: 47.5%;
+  height: 40%;
+}
