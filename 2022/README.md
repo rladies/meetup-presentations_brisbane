@@ -20,6 +20,6 @@ Github: https://github.com/rladies/meetup-presentations_brisbane
 
 Twitter: https://twitter.com/RLadiesBrisbane
 
-email: brisbane [at] rladies [dot] org 
+email: brisbane [at] rladies [dot] org or rladies.brisbane [at] gmail [dot] com
 
 **If you would like to speak at one of our events, please get in touch via the links above.**
