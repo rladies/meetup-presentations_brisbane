@@ -13,6 +13,7 @@
     * [Repository](https://github.com/katerobsau/conversationNSWFloods) for Global Historical Climatology Network daily data
     * Rainfall Visualisation [code](https://github.com/katerobsau/QUTCDS_Hackathon/tree/main/comparing_extreme_events/rainfall) 
   * [Social Media Scraping](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/SocialMediaScraping/SocialMediaScraping.pdf) - Tace Stewart, Lanxi Li
+    * Extract Twitter Images [repository](https://github.com/DaisyWatermelon/ExtractTwitterImages)
   * Road Closures - Peter Tarbit
   * [Vulnerability Index](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/VulnerabilityIndex/20220629_VulnerabilityI_RLadiesHackathon.html) - Dr Catherine Kim
   
