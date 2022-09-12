@@ -1,5 +1,9 @@
 # Making your workflow work for you
 
+Welcome to our September event!
+
+![R Ladies Brisbane September event poster - Make your workflow work for you](./09_Chloe_Yap_Events_poster.jpg)
+
 ## Sept. 28th, 2022 6pm AEST
 
 ### Speaker
