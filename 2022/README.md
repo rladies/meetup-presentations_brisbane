@@ -12,6 +12,9 @@
 ### June 2022
 * [Kate Saunders and the Brisbane Floods Hackathon](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/06)
 
+### September 2022
+* [Chloe Yap: Making your workflow work for you](https://github.com/rladies/meetup-presentations_brisbane/tree/master/2022/09)
+
 ## Useful links
 
 Meetup: https://www.meetup.com/rladies-brisbane/events			
