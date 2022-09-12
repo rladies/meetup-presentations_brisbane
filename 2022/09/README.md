@@ -8,7 +8,7 @@
 
 Welcome to our May event!
 
-[Meetup event](https://tinyurl.com/4p5r98nh). 
+[Meetup event](https://tinyurl.com/4p5r98nh)
 
 Presentation slides (TBD)
 
