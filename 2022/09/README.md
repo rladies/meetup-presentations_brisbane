@@ -17,4 +17,4 @@ Presentation slides (TBD)
 
 ### Useful URLs Shared during the presentation
 
-TBD
+[Chole's code](https://github.com/cyap7/RLadies)
