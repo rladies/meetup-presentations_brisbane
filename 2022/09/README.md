@@ -12,11 +12,11 @@ Welcome to our September event!
 
 * [Chloe Yap](https://twitter.com/doyouseewhy)
 * [Presentation slides](https://github.com/cyap7/RLadies/blob/main/220928_RLadies.pdf)
+* [Chole's demo code from the session](https://github.com/cyap7/RLadies)
 
 
 ### Useful URLs Shared during the presentation
 
-* [Chole's code](https://github.com/cyap7/RLadies)
 * [Noble et al. 2009 A Quick Guide to Organizing Computational Biology Projects](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
 * [ggstatsplot](https://github.com/IndrajeetPatil/ggstatsplot) package
 * [ggrepel](https://ggrepel.slowkow.com/) package
