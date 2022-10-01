@@ -1,4 +1,4 @@
-# Making your workflow work for you
+# Making your workflow work for you - Chloe Yap
 
 Welcome to our September event!
 
