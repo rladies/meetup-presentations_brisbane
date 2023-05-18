@@ -15,6 +15,6 @@
   * Social Media Scraping [(slides)](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/SocialMediaScraping/SocialMediaScraping.pdf) - Tace Stewart, Lanxi Li
     * Extract Twitter Images [repository](https://github.com/DaisyWatermelon/ExtractTwitterImages)
   * Road Closures - Peter Tarbit
-  * Vulnerability Index [(slides)](https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/VulnerabilityIndex/20220629_VulnerabilityI_RLadiesHackathon.html) - Dr Catherine Kim
+  * Vulnerability Index [(slides)](http://htmlpreview.github.io/?https://github.com/rladies/meetup-presentations_brisbane/blob/master/2022/06/VulnerabilityIndex/20220629_VulnerabilityI_RLadiesHackathon.html) - Dr Catherine Kim
   
 [Meetup event](https://www.meetup.com/rladies-brisbane/events/286604612/)
